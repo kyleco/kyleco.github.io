@@ -84,3 +84,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+collections:
+  lessons:
+    output: true
+    permalink: /:collection/:name
