@@ -45,10 +45,13 @@ Framing this as a probability model gives us all the tools of probability and st
 
 > For now the interest is in *identification* of treatment effects, which mean assume an infinite quantity of data.
 
+| Effect name | Quantity
+|-------|-------|
+| Average Treatment Effect (ATE) | $$E[Y^1 - Y^0]$$
+| Average Treatment Effect on the Treated (ATT) | $$E[Y^1 - Y^0 \| D=1]$$
+| Average Treatment Effect on the Un-treated (ATU) | $$E[Y^1 - Y^0 \| D=0]$$
 
 
-
-The average treatment effect is $$ \mathbb{E} [Y(1) - Y(0)] $$.
 
 
 ## Example: Vacation cabin bookings
