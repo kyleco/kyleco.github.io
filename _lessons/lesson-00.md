@@ -28,6 +28,16 @@ Topics that we will cover in the course, but which you should ideally have previ
 - Hypothesis tests, Errors ("Type I" and "Type II"), p-values, statistical significance
 - The linear model, OLS
 
+### Skills
+
+You will need to use the following computing techniques:
+
+- Basic numerical computing using Python
+- Data manipulation using Pandas and Numpy
+- `numpy.random` for simulation random samples
+- [Statsmodels](https://www.statsmodels.org/stable/index.html) for regressions
+- Jupyter notebooks
+
 ### Review materials
 
 ## Non-prerequistes
