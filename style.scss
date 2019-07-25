@@ -285,6 +285,11 @@ footer {
   text-align: center;
 }
 
+.MathJax, .MathJax_Display  {
+    text-align: left !important;
+    font-size: 190%  !important;
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";

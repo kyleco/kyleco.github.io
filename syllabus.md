@@ -27,3 +27,7 @@ Students should learn the following by completing the course:
 | 9/23 |
 | 9/30 |
 | 10/7 |
+
+## Related courses
+
+- ["The Statistics of Causal Inference in the Social Sciences" (Sekhon, UC Berkeley)](http://sekhon.berkeley.edu/causalinf/)
