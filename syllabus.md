@@ -33,3 +33,4 @@ Students should learn the following by completing the course:
 - ["The Statistics of Causal Inference in the Social Sciences" (Sekhon, UC Berkeley)](http://sekhon.berkeley.edu/causalinf/)
 - ["Measuring Impact in Practice" (Broockman, Stanford GSB)](https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&q=MGTECON%20383:%20Measuring%20Impact%20in%20Practice&academicYear=20162017) [[materials]](https://www.dropbox.com/s/dyyto6qmme4edu4/Shared%20Publicly%20-%20Broockman%20Measuring%20Impact%20Class-20180605T040309Z-001.zip?dl=0)
 - ["From Data to Decisions: The Role of Experiments" (Luca, Harvard Business School)](https://webcache.googleusercontent.com/search?q=cache:hta0-Wdar8gJ:https://www.hbs.edu/coursecatalog/2205.html+&cd=2&hl=en&ct=clnk&gl=us)
+- ["Empirical Microeconomics" (Jakiela and Ozier, U of MD)](http://economics.ozier.com/econ626/)

@@ -64,6 +64,8 @@ Our framework has some unintuitive interpretations. A typical introductory stati
 
 ### Variations of average treatment effects
 
+The table below shows key treatment effects of interest. The first three (ATE, ATT, ATC) are average treatment effects are different subsets of the population. The ATE is the treatment effect averaged across the entire population. The ATT is the treatment effect but average across only the individuals _that actually received treatment_. Many policy researchers focus on the ATT because it is the effect of a program, e.g., education or training, on those who received it. Finally, the ATC averaged across only the individuals that did _not_ receive the treatment. It tells us how much those individuals would be affected in the counterfactual world where they were subject to the treatment.
+
 | Effect name | Quantity
 |-------|-------|
 | Average Treatment Effect (ATE) | $$E[Y^1 - Y^0]$$
@@ -74,7 +76,7 @@ Our framework has some unintuitive interpretations. A typical introductory stati
 
 ### Bias of the naive average treatment effect
 
-Suppose have a sample of data and are interested in the ATE. We naively contrast the average outcomes in the two treatment groups: $$\frac{1}{N_1} \sum_{i:d_i=1}{Y_i} - \frac{1}{N_0} \sum_{i:d_i=0}{Y_i}$$. The expectation of this estimator is the Naive Average Treatment Effect (NATE). The equation below shows how the NATE can be decomposed into the ATE plus two bias terms: selection bias and differential effect bias.[[^mixtape_decomposition]] The two bias terms show that we cannot necessarily expect our estimate to be close to the true ATE.
+Suppose have a sample of data and are interested in the ATE. We naively contrast the average outcomes in the two treatment groups: $$\frac{1}{N_1} \sum_{i:d_i=1}{Y_i} - \frac{1}{N_0} \sum_{i:d_i=0}{Y_i}$$. The expectation of this quantity is the Naive Average Treatment Effect (NATE). The equation below shows how the NATE can be decomposed into the ATE plus two bias terms: selection bias and differential effect bias.[[^mixtape_decomposition]] The two bias terms show that we cannot necessarily expect our estimate to be close to the true ATE. Later we will see how randomized experiments eliminate these bias terms.
 
 $$
 \begin{align}
@@ -113,6 +115,53 @@ _Differential effect bias_ is a systematic difference between how the treatment 
 
 - Treatments are assigned to units based on expectations about the individual effects. Example: In the UNICEF example, suppose that people who search for "UNICEF" are more easily persuaded by the ads than are others who do not search for "UNICEF". The marketing agency of UNICEF knows this and bids specifically on the "UNICEF" term to target their ad budget in the most effective way possible. This will generate $$ E[Y^1 - Y^0\mid\text{Exposed to ad}] > E[Y^1 - Y^0\mid\text{Not exposed}] $$.
 
+
+### Randomized experiments remove bias by enforcing independence
+
+In the result above we calculated the naive difference between the treatment and control groups and showed that it has two bias terms. For both bias terms to be zero, we need the following conditions to be true:
+
+$$
+\begin{align}
+& E[Y^0 |  D=1] = E[Y^0 |  D=0], \text{and} \\
+& E[\Delta |  D=1] = E[\Delta |  D=0].
+\end{align}
+$$
+
+The key assumption for supporting these conditions is the _independence assumption_:
+
+$$
+(Y^0, Y^1) \perp D.
+$$
+
+The condition means that the potential outcomes are jointly independent of treatment assignment. Properly randomized experiments implement the independence assumption. Randomization should assign treatment or control to each unit independently of every other factor, for example, by a coin flip for each unit. This eliminates any relationship between $$(Y^1, Y^0)$$ and $$D$$. In particular, this means that:
+
+$$
+E[Y^0\mid D=d]  =E[Y^0], d=0,1, \\
+E[Y^1\mid D=d]  =E[Y^1]; d=0,1. \\
+$$
+
+First, the independence assumption eliminates _selection bias_:
+
+$$
+\begin{align}
+(Y^0, Y^1) \perp D &\rightarrow E[Y^0|D=d] = E[Y^0], d=0,1 \\
+&\rightarrow E[Y^0|D=1] - E[Y^0|D=0] = 0.
+\end{align}
+$$
+
+Second, the independence assumption eliminates _differential effect bias_. The argument is similar to the one above.
+
+
+
+
+{::comment}
+$$
+\begin{align}
+(Y_0, Y_1) \perp D &\rightarrow E[Y^1 - Y^0|D=1] = E[Y^1 - Y^0] \text{ and } E[Y^1 - Y^0|D=0] = E[Y^1 - Y^0]\\
+&\rightarrow E[Y^1 - Y^0|D=1] = E[Y^1 - Y^0] - E[Y^1 - Y^0|D=0] = 0.
+\end{align}
+$$
+{:/comment}
 
 {::comment}
 ## Example: Vacation cabin bookings
