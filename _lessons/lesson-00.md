@@ -34,8 +34,8 @@ You will need to use the following computing techniques:
 
 - Basic numerical computing using Python
 - Data manipulation using Pandas and Numpy
-- `numpy.random` for simulation random samples
-- [Statsmodels](https://www.statsmodels.org/stable/index.html) for regressions
+- `numpy.random` for simulating random samples
+- [Statsmodels](https://www.statsmodels.org/stable/index.html) for regressions. (scikit-learn does not have good support for inference.)
 - Jupyter notebooks
 
 ### Review materials
