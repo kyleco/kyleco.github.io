@@ -30,4 +30,9 @@ A simple data set would look like the following table. Here $$N$$ is the _sample
 
 ## Point estimators
 
+$$\bar{y}$$ is our estimator of $$E[Y]$$.
+
+Unbiasedness: $$E[\bar{y}] = E[Y]$$
+
+Standard error: $$V[\bar{y}] = \tfrac{\sigma_Y^2}{N}$$.
 
