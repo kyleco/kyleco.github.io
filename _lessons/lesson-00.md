@@ -40,9 +40,9 @@ You will need to use the following computing techniques:
 
 ### Review materials
 
-## Non-prerequistes
+## Nonconcerns
 
-These topics will not be covered in the course:
+The following topics will not be covered in the course:
 - Instrumental variables
 - Difference-in-differences (diff-in-diffs)
 - Regression discontinuity designs (RDD)
