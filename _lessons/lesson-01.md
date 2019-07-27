@@ -152,6 +152,18 @@ $$
 Second, the independence assumption eliminates _differential effect bias_. The argument is similar to the one above.
 
 
+## Conditional independence
+
+The independence assumption very strong and unlikely to hold true except in the most strictly controlled experiments. Economists and other social scientists often work with a weakened version called the _conditional independence assumption_ (CIA):
+
+$$
+(Y^0, Y^1) \perp D | X.
+$$
+
+This condition means that the potential outcomes are independent of treatment assignment _conditional on a vector of covariates_ X. Typical covariates in social science include age, race, location, and family background. In many settings these variables will influence both the potential outcomes and treatment assignment. A classic example is the effect of a college degree on earnings. We know there are strong relationships between both of those variables and the covariates listed above. In common practice the researcher will include these variables in a regression as "control variables" and argue, with varying success, that treatment is "as good as randomly assigned" conditional on those variables.
+
+The CIA is also called "selection on observables" (especially in econometrics), which means that we can account for selection bias using observable variables. "Observable" means we have data on those variables. The CIA is also called "unconfoundedness" or "ignorability".[[^confoundedness]]
+
 
 
 {::comment}
@@ -186,3 +198,5 @@ $$
 [^hume_causality]: For a classic philosophical take on the problem of learning from past experience to understand the future, start with ["Kant and Hume on Causality"](https://plato.stanford.edu/entries/kant-hume-causality/) in the Standford Encyclopedia of Philosphy. This topic is out of scope for this course.
 
 [^mixtape_decomposition]: The derivation is available in [_Causal Inference: The Mixtape_](https://www.scunning.com/mixtape.html) by Scott Cunningham.
+
+[^confoundedness]: "Confounding" means to mix things together in a way that makes them difficult to distinguish. In our case this means mixing together how the potential outcomes and treatment assignment are determined.
