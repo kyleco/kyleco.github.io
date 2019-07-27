@@ -48,3 +48,17 @@ The following topics will not be covered in the course:
 - Regression discontinuity designs (RDD)
 - Synthetic controls
 - Analysis of variance (ANOVA)
+
+## Math review
+
+### Random variables
+
+### Conditional distributions
+
+### Expectation
+
+### Variance
+
+### Independence of random variables
+
+### Conditional independence of random variables
