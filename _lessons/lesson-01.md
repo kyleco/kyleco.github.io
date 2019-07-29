@@ -39,7 +39,7 @@ For each individual $$i$$ we will suppose that there is only one instant in whic
 We want to estimate causal effects. The basic units of causality are the individual-level treatment effects $$y^1_i - y^0_i$$, which represent the difference in donation amount caused by exposure to the ad. However, it is impossible to directly calculate this treatment effect from data because one of the values is always missing from out data! This limitation is the *fundamental problem of causal inference*. We will return to this problem, but we are not yet done building up our framework. It needs to be embedded in a probability model.
 
 ### Example data from UNICEF ads problem
-The table below shows the potential donation amounts for four individuals. Such a data set can only be obtained by an oracle that knows what each individual will do under both conditions. In practice, we non-superhuman economists can only obtain the first 3 columns of data.
+The table below shows the potential donation amounts for five individuals. Such a data set can only be obtained by an oracle that knows what each individual will do under both conditions. In practice, we non-superhuman economists can only obtain the first 3 columns of data.
 
 | Individual $$(i)$$ | Actually exposed to ad? $$(d_i)$$ | Actual donation amount $$(y_i)$$ | Potential donation amount:<br> No ad $$(y^0_i)$$ | Potential donation amount:<br> Exposed to ad $$(y^1_i)$$ | Individual treatment effect $$(d_i)$$
 |-------|--------|---------|
