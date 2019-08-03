@@ -6,13 +6,15 @@ layout: default
     <h2>Admin</h2>
     	<ul>
     		<li><a href="syllabus/index.html">Syllabus</a></h2></li>
+        <li><a href="about">About me</a></h2></li>
     	</ul>
     <h2>Lessons</h2>
+    
     <ul>
-{% for lesson in site.lessons %}
-  <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
-{% endfor %}
-</ul>
+    {% for lesson in site.lessons %}
+      <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
+    {% endfor %}
+    </ul>
 
 <h2>Notebooks</h2>
   <ul>

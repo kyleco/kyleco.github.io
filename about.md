@@ -1,15 +1,20 @@
 ---
 layout: page
-title: About
+title: About me
 permalink: /about/
 ---
 
-Some information about you!
+### Contact
 
-### More Information
+Please contact me by my USF email in the page below.
 
-A place to include any other types of information that you'd like to include about yourself.
+[USF Faculty Page - Kyle Carlson](https://www.usfca.edu/faculty/kyle-carlson)
 
-### Contact me
+### Other pages
 
-[email@domain.com](mailto:email@domain.com)
+[LinkedIn](https://www.linkedin.com/in/kylecarlson1)
+
+[Twitter](https://twitter.com/KyleCSN)
+
+[Google Scholar](https://scholar.google.com/citations?user=vo9gKeAAAAAJ&hl=en)
+
