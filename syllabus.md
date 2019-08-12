@@ -103,6 +103,7 @@ The course roughly splits in half. The first half focuses on establishing framew
 #### Lecture 4 - Complications in practice: Biased estimates
   - Review causality fundamentals
   - Topics
+    - Commentary on instrumentation, tech debt, attention, neglect
     - Roll-out: Bias and conditional independence
     - Compliance: Intention-to-treat, "trigger analysis" 
     - Unintended treatment-control differences (e.g., error rates, load time)
@@ -112,7 +113,7 @@ The course roughly splits in half. The first half focuses on establishing framew
     - Simulate bias from weekly cyclicality + roll-out + conditional independence
     - Simulate non-compliance and ITT
 
-### Lecture 5 - Complications in practice: Inference
+#### Lecture 5 - Complications in practice: Inference
   - Topics
     - Planning experiments: Power, unknown sample sizes
     - Early-stopping and "peeking"
