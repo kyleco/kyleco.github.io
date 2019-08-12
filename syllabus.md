@@ -20,16 +20,16 @@ Students should learn the following by completing the course:
 The course roughly splits in half. The first half focuses on establishing frameworks for thinking about experiments rigorously. In the second half we apply those frameworks to understand the complications of experimentation in practice.
 
 | Date | Topics | 
-| 8/19 | Lecture 1 - Causality fundamentals
+| 8/19 *Monday* | Lecture 1 - Causality fundamentals
 | ~~8/26~~ (Canceled) |
-| 8/30 | Lecture 2 - Uncertainty
+| 8/30 *Friday* | Lecture 2 - Uncertainty
 | ~~9/2~~ (Canceled: Labor Day)  |
-| 9/9  | Lecture 3 - Sampling complications |
-| 9/16 | Lecture 4 - Estimation |
-| 9/23 | Lecture 5 - Complications in practice |
-| 9/30 | Lecture 6 - Decision-making |
-| 10/7 | Lecture 7 - Large-scale experimentation |
-| 10/14 | Lecrure 8 - TBD |
+| 9/9 *Monday* | Lecture 3 - Sampling complications |
+| 9/16 *Monday* | Lecture 4 - Estimation |
+| 9/23 *Monday* | Lecture 5 - Complications in practice |
+| 9/30 *Monday* | Lecture 6 - Decision-making |
+| 10/7 *Monday* | Lecture 7 - Large-scale experimentation |
+| 10/14 *Monday* | Lecture 8 - TBD |
 
 
 ### Class outlines
