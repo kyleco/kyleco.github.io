@@ -35,11 +35,11 @@ The course roughly splits in half. The first half focuses on establishing framew
 | ~~8/26~~ (Canceled) |
 | 8/30 *Friday* | Lecture 2 - Uncertainty
 | ~~9/2~~ (Canceled: Labor Day)  |
-| 9/9 *Monday* | Lecture 3 - Sampling complications |
-| 9/16 *Monday* | Lecture 4 - Estimation |
-| 9/23 *Monday* | Lecture 5 - Complications in practice |
+| 9/9 *Monday* | Lecture 3 - Estimation |
+| 9/16 *Monday* | Lecture 4 - Complications in practice: Bias |
+| 9/23 *Monday* | Lecture 5 - Complications in practice: Inference |
 | 9/30 *Monday* | Lecture 6 - Decision-making |
-| 10/7 *Monday* | Lecture 7 - Large-scale experimentation |
+| 10/7 *Monday* | Lecture 7 - Review |
 | 10/14 *Monday* | Lecture 8 - TBD |
 
 
