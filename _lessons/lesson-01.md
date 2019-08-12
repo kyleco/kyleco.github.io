@@ -41,11 +41,11 @@ We want to estimate causal effects. The basic units of causality are the individ
 ### Example data from UNICEF ads problem
 The table below shows the potential donation amounts for five individuals. Such a data set can only be obtained by an oracle that knows what each individual will do under both conditions. In practice, we non-superhuman economists can only obtain the first 3 columns of data.
 
-| Individual $$(i)$$ | Actually exposed to ad? $$(d_i)$$ | Actual donation amount $$(y_i)$$ | Potential donation amount:<br> No ad $$(y^0_i)$$ | Potential donation amount:<br> Exposed to ad $$(y^1_i)$$ | Individual treatment effect $$(d_i)$$
+| Individual $$(i)$$ | Actually exposed to ad? $$(d_i)$$ | Actual donation amount $$(y_i)$$ | Potential donation amount:<br> No ad $$(y^0_i)$$ | Potential donation amount:<br> Exposed to ad $$(y^1_i)$$ | Individual treatment effect $$(\delta_i)$$
 |-------|--------|---------|
 | 1 | 1 (Yes) | $0  | $0  | $0    | 0
 | 2 | 0 (No)  | $0  | $0  | $5    | 5
-| 3 | 1 (Yes) | $10 | $10 | $10   | 10
+| 3 | 1 (Yes) | $10 | $10 | $10   | 0
 | 4 | 1 (Yes) | $10 | $5  | $10   | 5
 | 5 | 0 (No)  | $5  | $5  | $0    | -5
 

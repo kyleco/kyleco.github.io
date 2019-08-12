@@ -15,18 +15,129 @@ Students should learn the following by completing the course:
 - How to identify and address practical complications in experiments. Experiments in software or internet businesses present numerous challenges that are less often seen in a research setting. Students should learn how to minimize practical threats to the validity of their experiments.
 - How to plan and evaluate experiments using simulations. Experimenters can use simulations to quickly understand complications and potential solutions. This skill is especially useful in the applied setting when theoretical approaches may be too time consuming or difficult to communicate.
 
-## Schedule
+## Lecture plan
+### Class schedule
+The course roughly splits in half. The first half focuses on establishing frameworks for thinking about experiments rigorously. In the second half we apply those frameworks to understand the complications of experimentation in practice.
 
-| Date | Topics
-| 8/19 | 
+| Date | Topics | 
+| 8/19 | Lecture 1 - Causality fundamentals
 | ~~8/26~~ (Canceled) |
-| 8/30 |
+| 8/30 | Lecture 2 - Uncertainty
 | ~~9/2~~ (Canceled: Labor Day)  |
-| 9/9  |
-| 9/16 |
-| 9/23 |
-| 9/30 |
-| 10/7 |
+| 9/9  | Lecture 3 - Sampling complications |
+| 9/16 | Lecture 4 - Estimation |
+| 9/23 | Lecture 5 - Complications in practice |
+| 9/30 | Lecture 6 - Decision-making |
+| 10/7 | Lecture 7 - Large-scale experimentation |
+| 10/14 | Lecrure 8 - TBD |
+
+
+### Class outlines
+#### Lecture 1 - Causality fundamentals
+- Example cases: Why is experimentation important? Why is it challenging?
+- Overview of the course
+- Topics: Potential outcomes model, treatment effects, identification, selection bias, independence assumption, SUTVA
+- In-class exercises: Law of large numbers, selection bias, conditional independence
+
+#### Lecture 2 - Uncertainty
+- Review material from lecture 1 + commentary on problems
+- Topics
+  - Identification vs. statistical inference
+  - "Repeated sampling" 
+  - Standard errors and confidence intervals
+  - Data-generating processes and models
+  - Hypothesis testing and p-values
+  - Power
+  - Commentary about other forms of uncertainty (randomization, Bayesian)
+ - In-class exercises
+   - Central limit theorem
+   - Confidence intervals
+   - Hypothesis testing
+
+#### Lecture 3 - Sampling complications
+ - Review lecture 2 concepts + commentary on problems
+ - Topics
+   - Precision of estimates and power
+   - Randomization types: 
+     - Simple randomization (independent coin flips)
+     - Block randomization (balance sample sizes)
+     - Stratified randomization (block randomization on covariates)
+     - Paired design (2-unit blocks)
+     - Clustering
+     - Factorial (mention but cover later)
+  - In-class exercises
+    - Simulate power for simple randomization vs. block randomization
+    - Simulate simple vs. paired
+    - Simulate simple randomization vs. stratified randomization
+    - Simulate simple vs clustering
+
+#### Lecture 4 - Estimation
+  - Review causality fundamentals + uncertainty + commentary on problems
+  - Topics
+    - Calculating means
+    - Regression for calculating means
+    - Linear probability model
+	- Matching to achieve conditional independence
+	- Regression to achieve conditional independence
+    - Standard errors for mean and regressions
+    - Hypothesis testing with regression
+    - Covariates to improve precision and appropriate use in experiments
+    - Robust and clustered standard erorrs
+  - In-class exercises
+    - Calculating means and probabilities with regression (identifying various distributions)
+    - Achieving conditional independence with matching and regression
+    - Sampling distribution of point estimates vs. standard error estimates
+    - Covariates in regression
+
+#### Lecture 5 - Complication in practice and the culture of experiments
+ - Review bias, power, and estimation. We now have a theoretical foundation to rigorously think about the complications of experimentation in practice.
+ - Topics
+   - Planning experiments: Power, unknown sample sizes, cyclicality
+   - Instrumentation, errors, data loss
+   - Roll-out: Bias and conditional independence
+   - Compliance: Intention-to-treat, "trigger analysis"
+   - Early-stopping, "peeking"
+   - Bias from early-stopping due to errors
+   - Clustering and users of a site/software (cookies, sessions, pages)
+   - Unintended treatment-control differences (e.g., error rates, load time)
+   - Experiments that affect sample size
+ - In-class exercises
+   - Simulate bias from weekly cyclicality + roll-out + conditional independence
+   - Simulate non-compliance and ITT
+   - Simulate peeking
+   - Simulating bias from clustering (application of clustered SEs a la Athey)
+
+#### Lecture 6 - Experiments and economic decision-making
+- Review hypothesis testing and power and reasons for experimentation
+- Topics
+  - Differences between research experiments and applied experiments
+  - Hypothesis tests and decision-making: Paradox if simple null hypothesis
+  - Value of information
+  - Deciding whether to do an experiment
+  - Deciding which experiment to do
+  - Experimentation for hypothesis-testing vs. optimization
+- In-class exercises
+  - Simulate researcher vs. applied and hypothesis testing errors
+  - Simulate hypothesis testing vs. utility in an applied context
+  - Simulate value of information of different experiment designs
+  - Simulating multiple treatments and optimization
+
+#### Lecture 7 - Large-scale experimentation
+- Review decision-making
+- Topics
+  - Large numbers of outcomes. Multiple hypothesis testing
+  - Multiple treatments and interacting experiments
+  - Allocating samples across experiments
+  - "Experiment platforms"
+  - Reporting experiment results
+  - Small effects multiplied across huge scales
+- In-class exercises
+  - Simulating many outcomes and multiple hypothesis testing
+  - Simulating multiple concurrent experiments
+  - Simulating optimal allocations across experiments
+ 
+#### Lecture 8 - TBD
+
 
 ## Related courses
 
