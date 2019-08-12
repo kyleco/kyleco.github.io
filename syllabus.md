@@ -15,6 +15,17 @@ Students should learn the following by completing the course:
 - How to identify and address practical complications in experiments. Experiments in software or internet businesses present numerous challenges that are less often seen in a research setting. Students should learn how to minimize practical threats to the validity of their experiments.
 - How to plan and evaluate experiments using simulations. Experimenters can use simulations to quickly understand complications and potential solutions. This skill is especially useful in the applied setting when theoretical approaches may be too time consuming or difficult to communicate.
 
+
+## Grading
+
+The course will be graded based on the following components:
+- 65% Assignments – Homework and Labs
+- 10% Attendance
+- 25% Final Exam
+
+## Attendance 
+You will lose 10% of this grade for every class period you miss. And yes, that can turn negative (e.g. if you miss 11 class periods, your attendance score is -10%).
+
 ## Lecture plan
 ### Class schedule
 The course roughly splits in half. The first half focuses on establishing frameworks for thinking about experiments rigorously. In the second half we apply those frameworks to understand the complications of experimentation in practice.
@@ -54,7 +65,7 @@ The course roughly splits in half. The first half focuses on establishing framew
    - Confidence intervals
    - Hypothesis testing
 
-#### Lecture 3 - Sampling complications
+<!-- #### Lecture 3 - Sampling complications
  - Review lecture 2 concepts + commentary on problems
  - Topics
    - Precision of estimates and power
@@ -69,9 +80,9 @@ The course roughly splits in half. The first half focuses on establishing framew
     - Simulate power for simple randomization vs. block randomization
     - Simulate simple vs. paired
     - Simulate simple randomization vs. stratified randomization
-    - Simulate simple vs clustering
+    - Simulate simple vs clustering -->
 
-#### Lecture 4 - Estimation
+#### Lecture 3 - Estimation
   - Review causality fundamentals + uncertainty + commentary on problems
   - Topics
     - Calculating means
@@ -89,13 +100,36 @@ The course roughly splits in half. The first half focuses on establishing framew
     - Sampling distribution of point estimates vs. standard error estimates
     - Covariates in regression
 
-#### Lecture 5 - Complication in practice and the culture of experiments
+#### Lecture 4 - Complications in practice: Biased estimates
+  - Review causality fundamentals
+  - Topics
+    - Roll-out: Bias and conditional independence
+    - Compliance: Intention-to-treat, "trigger analysis" 
+    - Unintended treatment-control differences (e.g., error rates, load time)
+    - Experiments that affect sample size
+    - Interacting experiments
+  - In-class exercises
+    - Simulate bias from weekly cyclicality + roll-out + conditional independence
+    - Simulate non-compliance and ITT
+
+### Lecture 5 - Complications in practice: Inference
+  - Topics
+    - Planning experiments: Power, unknown sample sizes
+    - Early-stopping and "peeking"
+    - Types of sampling: Simple randomization, blocked, stratified, clustered
+    - Clustering and users of a site/software (cookies, sessions, pages)
+    - Multiple hypothesis testing, "multiple comparisons"
+  - In-class exercises
+    - Simulate peeking  
+    - Simulating bias from clustering (application of clustered SEs a la Athey)
+    - Simulating multiple hypothesis testing
+
+<!-- #### Lecture 5 - Complication in practice and the culture of experiments
  - Review bias, power, and estimation. We now have a theoretical foundation to rigorously think about the complications of experimentation in practice.
  - Topics
    - Planning experiments: Power, unknown sample sizes, cyclicality
    - Instrumentation, errors, data loss
-   - Roll-out: Bias and conditional independence
-   - Compliance: Intention-to-treat, "trigger analysis"
+   
    - Early-stopping, "peeking"
    - Bias from early-stopping due to errors
    - Clustering and users of a site/software (cookies, sessions, pages)
@@ -105,7 +139,7 @@ The course roughly splits in half. The first half focuses on establishing framew
    - Simulate bias from weekly cyclicality + roll-out + conditional independence
    - Simulate non-compliance and ITT
    - Simulate peeking
-   - Simulating bias from clustering (application of clustered SEs a la Athey)
+   - Simulating bias from clustering (application of clustered SEs a la Athey) -->
 
 #### Lecture 6 - Experiments and economic decision-making
 - Review hypothesis testing and power and reasons for experimentation
@@ -122,7 +156,9 @@ The course roughly splits in half. The first half focuses on establishing framew
   - Simulate value of information of different experiment designs
   - Simulating multiple treatments and optimization
 
-#### Lecture 7 - Large-scale experimentation
+#### Lecture 7 - Review
+
+<!-- #### Lecture 7 - Large-scale experimentation
 - Review decision-making
 - Topics
   - Large numbers of outcomes. Multiple hypothesis testing
@@ -134,7 +170,7 @@ The course roughly splits in half. The first half focuses on establishing framew
 - In-class exercises
   - Simulating many outcomes and multiple hypothesis testing
   - Simulating multiple concurrent experiments
-  - Simulating optimal allocations across experiments
+  - Simulating optimal allocations across experiments -->
  
 #### Lecture 8 - TBD
 
