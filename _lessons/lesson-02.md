@@ -9,6 +9,7 @@ layout: default
 * Table of contents
 {:toc}
 
+# WORK IN PROGRESS
 
 ## Uncertainty and variation
 
@@ -35,10 +36,4 @@ _Estimators_ are functions of random variables that we use to estimate a populat
 > Another way to think of this: An **estimator** is a **procedure**, and an **estimate** is the **result** of the procedure. 
 
 
-
-$$\bar{y}$$ is our estimator of $$E[Y]$$.
-
-Unbiasedness: $$E[\bar{y}] = E[Y]$$
-
-Standard error: $$V[\bar{y}] = \tfrac{\sigma_Y^2}{N}$$.
 
