@@ -13,7 +13,9 @@ layout: default
     
     <ul>
     {% for lesson in site.lessons %}
+    {% if lesson.title == 'Lesson 1 - Causality Fundamentals' %}
       <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
+      {% endif %}
     {% endfor %}
     </ul>
 
