@@ -1,5 +1,5 @@
 ---
-title: Lesson 1 - Causality Fundamentals
+title: Lesson 1 - Causality fundamentals
 author: Kyle Carlson
 layout: post
 ---
