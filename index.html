@@ -10,7 +10,50 @@ layout: default
     	</ul>
 
     <h2>Lessons</h2>
+
+    <h3>Lesson 1: Causality fundamentals</h3>
+    <ul>
+    {% for lesson in site.lessons %}
+    {% if lesson.title == 'Lesson 1 - Causality fundamentals' %}
     
+      <li><a href="{{ lesson.url }}">Causality fundamentals notes</a></li>
+      <li>Reading: "Potential outcomes causal model" in SCMixtape</li>
+      <li>Supplemental reading: Part I of MWCCI.</li>
+      {% endif %}
+
+    {% endfor %}
+    </ul>
+
+    <h3>Lesson 2: Random sampling and statistical tests</h3>
+    <ul>
+		<li><a href="https://colab.research.google.com/drive/1YqFxxVEr190PjuMUsxKaFmaUS7Gaa1qN"> Colab notebook</a></li>
+		<li>Reading: Part I of PEEGES</li>
+ 	</ul>
+
+ 	<h3>Lesson 3: Estimation: Regression and experiments</h3>
+ 	<ul>
+		<li><a href="https://colab.research.google.com/drive/1mn3iogugMBo02uNSgjFoq3EfbZuqQfPn">Colab notebook</a></li>
+		<li>Reading: "Properties of Regression" in SCMixtape</li>
+		<li>Supplemental readings: Chapters 4 (matching) and 5 (regression) of MWCCI.</li>
+ 	</ul>
+
+ 	<h3>Lesson 4: Practical  complications and biased ATE estimates</h3>
+ 	<ul>
+		<li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI">Colab notebook</a>
+ 	</ul>
+
+ 	<h3>Lesson 5: Practical  complications and inference</h3>
+ 	<ul>
+		<li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI">Colab notebook</a>
+ 	</ul>
+
+ 	<h3>Lesson 6: Decision-making and experiments</h3>
+  	<ul>
+        <li><a href="https://colab.research.google.com/drive/18YfQu3GFi8RvMD6sIdfeTrXLbxsTi5kZ">Colab notebook</a></li>
+        <li><a href="https://colab.research.google.com/drive/1RbDfkR1jqB5xuR-YB8uJhUGf8ZQBOhbX">Decision strategies (bonus material) [Colab notebook]</a></li>
+        <li>Reading: Kim Jae. (2015) <a href="https://mpra.ub.uni-muenchen.de/66373/1/MPRA_paper_66373.pdf"></a>"How to Choose the Level of Significance: A Pedagogical Note."</li>    
+    </ul>
+<!-- 
     <ul>
     <li>Lesson 1<ul>
     {% for lesson in site.lessons %}
@@ -38,7 +81,7 @@ layout: default
      	</ul>
 	</li>
     <li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI">Lesson 4 - Practical  complications and biased ATE estimates [Colab notebook]</a></li>
-    <li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI">Lesson 5 - Practical  complications and inference [Colab notebook]</a></li>
+    <li><a href="">Lesson 5 - Practical  complications and inference [Colab notebook]</a></li>
     <li>Lesson 6 - Decision-making and experiments
       <ul>
         <li><a href="https://colab.research.google.com/drive/18YfQu3GFi8RvMD6sIdfeTrXLbxsTi5kZ">Colab notebook</a></li>
@@ -50,7 +93,7 @@ layout: default
     
     </ul>
 
-    
+     -->
 <h2>Reference books</h2>
 <ul>
   <li>SCMixtape = Scott Cunningham.<i> <a href="http://scunning.com/cunningham_mixtape.pdf">Causal 
