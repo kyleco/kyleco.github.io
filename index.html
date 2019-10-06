@@ -12,13 +12,32 @@ layout: default
     <h2>Lessons</h2>
     
     <ul>
+    <li>Lesson 1<ul>
     {% for lesson in site.lessons %}
     {% if lesson.title == 'Lesson 1 - Causality fundamentals' %}
+    
       <li><a href="{{ lesson.url }}">{{ lesson.title }}</a></li>
+      <li>Reading: "Potential outcomes causal model" in <i><a href="http://scunning.com/cunningham_mixtape.pdf">Causal Inference:The Mixtape</a></i> by Scott Cunningham.</li>
+      <li>Supplemental reading: Part I of Morgan and Winship. <i>Counterfactuals and Causal Inference.</i> (Cambridge University Press, 2007). </li>
       {% endif %}
+
     {% endfor %}
-    <li><a href="https://colab.research.google.com/drive/1YqFxxVEr190PjuMUsxKaFmaUS7Gaa1qN">Lesson 2 - Random sampling and statistical tests [Colab notebook]</a></li>
-    <li><a href="https://colab.research.google.com/drive/1mn3iogugMBo02uNSgjFoq3EfbZuqQfPn">Lesson 3 - Estimation: Regression and experiments [Colab notebook]</a></li>
+    </ul></li>
+    
+    <li>Lesson 2 - Random sampling and statistical tests
+    	<ul>
+    		<li><a href="https://colab.research.google.com/drive/1YqFxxVEr190PjuMUsxKaFmaUS7Gaa1qN"> Colab notebook</a></li>
+    		<li>Reading: Part I of <i>The Essential Guide to Effect Sizes: Statistical Power, Meta-Analysis, and the Interpretation of Research Results.</i> by Paul Ellis (Cambridge University Press, 2010).</li>
+    		<li>.</li>
+     	</ul>
+	</li>
+	<li>Lesson 3 - Estimation: Regression and experiments
+    	<ul>
+    		<li><a href="https://colab.research.google.com/drive/1mn3iogugMBo02uNSgjFoq3EfbZuqQfPn">Colab notebook</a></li>
+    		<li>Reading: "Properties of Regression" in <i><a href="http://scunning.com/cunningham_mixtape.pdf">Causal Inference:The Mixtape</a></i> by Scott Cunningham.</li>
+    		<li>Supplemental readings: Chapter 4 (matching) and chapter 5 (regression) of Morgan and Winship. <i>Counterfactuals and Causal Inference.</i> (Cambridge University Press, 2007).</li>
+     	</ul>
+	</li>
     <li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI">Lesson 4 - Practical  complications and biased ATE estimates [Colab notebook]</a></li>
     <li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI">Lesson 5 - Practical  complications and inference [Colab notebook]</a></li>
     <li><a href="https://colab.research.google.com/drive/18YfQu3GFi8RvMD6sIdfeTrXLbxsTi5kZ">Lesson 6 - Decision-making and experiments [Colab notebook]</a></li>
