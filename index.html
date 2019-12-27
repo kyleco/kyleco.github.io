@@ -3,58 +3,63 @@ layout: default
 ---
 
 <div>
-    <h2>Admin</h2>
-    	<ul>
-    		<!-- <li><a href="syllabus/index.html">Syllabus</a></h2></li> -->
-        <li><a href="about">About me</a></h2></li>
-    	</ul>
+  <h2>Admin</h2>
+  <ul>
+    <!-- <li><a href="syllabus/index.html">Syllabus</a></h2></li> -->
+    <li><a href="about">About me</a></h2>
+    </li>
+  </ul>
 
-    <h2>Lessons</h2>
+  <h2>Lessons</h2>
 
-    <h3>Lesson 1: Causality fundamentals</h3>
-    <ul>
+  <h3>Lesson 1: Causality fundamentals</h3>
+  <ul>
     {% for lesson in site.lessons %}
     {% if lesson.title == 'Lesson 1 - Causality fundamentals' %}
-    
-      <li><a href="{{ lesson.url }}">Causality fundamentals notes</a></li>
-      <li>Reading: "Potential outcomes causal model" in SCMixtape</li>
-      <li>Supplemental reading: MWCCI, Part I "Counterfactual Causality and Empirical Research in the Social Sciences"</li>
-      {% endif %}
+
+    <li><a href="{{ lesson.url }}">Causality fundamentals notes</a></li>
+    <li>Reading: "Potential outcomes causal model" in SCMixtape</li>
+    <li>Supplemental reading: MWCCI, Part I "Counterfactual Causality and Empirical Research in the Social Sciences"
+    </li>
+    {% endif %}
 
     {% endfor %}
-    </ul>
+  </ul>
 
-    <h3>Lesson 2: Random sampling and statistical tests</h3>
-    <ul>
-		<li><a href="https://colab.research.google.com/drive/1YqFxxVEr190PjuMUsxKaFmaUS7Gaa1qN"> Colab notebook</a></li>
-		<li>Reading: PEEGES, Part II "The analysis of statistical power"</li>
- 	</ul>
+  <h3>Lesson 2: Random sampling and statistical tests</h3>
+  <ul>
+    <li><a href="https://colab.research.google.com/drive/1YqFxxVEr190PjuMUsxKaFmaUS7Gaa1qN"> Colab notebook</a></li>
+    <li>Reading: PEEGES, Part II "The analysis of statistical power"</li>
+  </ul>
 
- 	<h3>Lesson 3: Regression for estimation in experiments</h3>
- 	<ul>
-		<li><a href="https://colab.research.google.com/drive/1mn3iogugMBo02uNSgjFoq3EfbZuqQfPn">Colab notebook</a></li>
-		<li>Reading: "Properties of Regression" in SCMixtape</li>
-		<li>Supplemental readings: Chapters 4 (matching) and 5 (regression) of MWCCI.</li>
- 	</ul>
+  <h3>Lesson 3: Regression for estimation in experiments</h3>
+  <ul>
+    <li><a href="https://colab.research.google.com/drive/1mn3iogugMBo02uNSgjFoq3EfbZuqQfPn">Colab notebook</a></li>
+    <li>Reading: "Properties of Regression" in SCMixtape</li>
+    <li>Supplemental readings: Chapters 4 (matching) and 5 (regression) of MWCCI.</li>
+  </ul>
 
- 	<h3>Lesson 4: Practical  complications and biased ATE estimates</h3>
- 	<ul>
-		<li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI">Colab notebook</a>
- 	</ul>
+  <h3>Lesson 4: Practical complications and biased ATE estimates</h3>
+  <ul>
+    <li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI">Colab notebook</a>
+  </ul>
 
- 	<h3>Lesson 5: Practical  complications and inference</h3>
- 	<ul>
-		<li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI">Colab notebook</a>
- 	</ul>
+  <h3>Lesson 5: Practical complications and inference</h3>
+  <ul>
+    <li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI">Colab notebook</a>
+  </ul>
 
- 	<h3>Lesson 6: Decision-making and experiments</h3>
-  	<ul>
-        <li><a href="https://colab.research.google.com/drive/18YfQu3GFi8RvMD6sIdfeTrXLbxsTi5kZ">Colab notebook</a></li>
-        <li><a href="https://colab.research.google.com/drive/1RbDfkR1jqB5xuR-YB8uJhUGf8ZQBOhbX">Decision strategies (bonus material) [Colab notebook]</a></li>
-        <li>Reading: Kim Jae. (2015) <a href="https://mpra.ub.uni-muenchen.de/66373/1/MPRA_paper_66373.pdf"></a>"How to Choose the Level of Significance: A Pedagogical Note."</li>
-        <li>Supplemental reading: PIDT, sections 13.1.{1,2,3} "Measuring the value of information", 13.2.3 "Hypothesis testing"</li>
-    </ul>
-<!-- 
+  <h3>Lesson 6: Decision-making and experiments</h3>
+  <ul>
+    <li><a href="https://colab.research.google.com/drive/18YfQu3GFi8RvMD6sIdfeTrXLbxsTi5kZ">Colab notebook</a></li>
+    <li><a href="https://colab.research.google.com/drive/1RbDfkR1jqB5xuR-YB8uJhUGf8ZQBOhbX">Decision strategies (bonus
+        material) [Colab notebook]</a></li>
+    <li>Reading: Kim Jae. (2015) <a href="https://mpra.ub.uni-muenchen.de/66373/1/MPRA_paper_66373.pdf"></a>"How to
+      Choose the Level of Significance: A Pedagogical Note."</li>
+    <li>Supplemental reading: PIDT, sections 13.1.{1,2,3} "Measuring the value of information", 13.2.3 "Hypothesis
+      testing"</li>
+  </ul>
+  <!-- 
     <ul>
     <li>Lesson 1<ul>
     {% for lesson in site.lessons %}
@@ -95,71 +100,80 @@ layout: default
     </ul>
 
      -->
-<h2>Reference books</h2>
-Digital copies are available from the library.
-<ul>
-  <li>SCMixtape = Scott Cunningham.<i> <a href="http://scunning.com/cunningham_mixtape.pdf">Causal 
-  Inference: The Mixtape</a></i>.</li>
-  <li>MWCCI = Morgan and Winship. <i>Counterfactuals and Causal Inference.</i> Cambridge University Press, 2007.</li>
-  <li>PEEGES = Paul Ellis. <i>The Essential Guide to Effect Sizes: Statistical Power, Meta-Analysis, and the Interpretation of Research Results.</i> Cambridge University Press, 2010.</li>
-  <li>PIDT = Giovanni Parmigiani and Lurdes Inoue. <i>Decision Theory: Principles and Approaches.</i> Wiley, 2009.</li>
-  
-</ul>
+  <h2>Reference books</h2>
+  Digital copies are available from the library.
+  <ul>
+    <li>SCMixtape = Scott Cunningham.<i> <a href="http://scunning.com/cunningham_mixtape.pdf">Causal
+          Inference: The Mixtape</a></i>.</li>
+    <li>MWCCI = Morgan and Winship. <i>Counterfactuals and Causal Inference.</i> Cambridge University Press, 2007.</li>
+    <li>PEEGES = Paul Ellis. <i>The Essential Guide to Effect Sizes: Statistical Power, Meta-Analysis, and the
+        Interpretation of Research Results.</i> Cambridge University Press, 2010.</li>
+    <li>PIDT = Giovanni Parmigiani and Lurdes Inoue. <i>Decision Theory: Principles and Approaches.</i> Wiley, 2009.
+    </li>
 
-    
+  </ul>
 
-<h2>In-class exercises</h2>
+
+
+  <h2>In-class exercises</h2>
   <ul>
     <li>Lecture 1
       <ul>
-      <li><a href="https://colab.research.google.com/drive/1FkuFbiMUxnoNLbY4AbIKiUWoabS95gD5" target="_blank">Law of large numbers (notebook)</a></li>
-      <li><a href="https://colab.research.google.com/drive/1IjONxdsa_wUVj0Zf-7njerKjQePs9zQx" target="_blank">Selection bias (notebook)</a></li>
-      <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li>
+        <li><a href="https://colab.research.google.com/drive/1FkuFbiMUxnoNLbY4AbIKiUWoabS95gD5" target="_blank">Law of
+            large numbers (notebook)</a></li>
+        <li><a href="https://colab.research.google.com/drive/1IjONxdsa_wUVj0Zf-7njerKjQePs9zQx"
+            target="_blank">Selection bias (notebook)</a></li>
+        <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li>
       </ul>
     </li>
     <li>Lecture 2
       <ul>
-        <li><a href="https://colab.research.google.com/drive/1o3NSVt2BJiOUd99JHVqfBisA89H_e2wj" target="_blank">Exercises notebook</a></li>
-      <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
+        <li><a href="https://colab.research.google.com/drive/1o3NSVt2BJiOUd99JHVqfBisA89H_e2wj"
+            target="_blank">Exercises notebook</a></li>
+        <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
       </ul>
     </li>
     <li>Lecture 3
       <ul>
-        <li><a href="https://colab.research.google.com/drive/1mSIhcjoJQaoC3Hmd0BCk7JmBzOSqZHfR" target="_blank">Exercises notebook</a></li>
-      <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
+        <li><a href="https://colab.research.google.com/drive/1mSIhcjoJQaoC3Hmd0BCk7JmBzOSqZHfR"
+            target="_blank">Exercises notebook</a></li>
+        <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
       </ul>
     </li>
     <li>Lecture 4
       <ul>
-        <li><a href="https://colab.research.google.com/drive/1DLcFYeEKxoHvq28_g8sT5SzUx4bkHIhe" target="_blank">Exercises notebook (also Problem set 4)</a></li>
-      <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
+        <li><a href="https://colab.research.google.com/drive/1DLcFYeEKxoHvq28_g8sT5SzUx4bkHIhe"
+            target="_blank">Exercises notebook (also Problem set 4)</a></li>
+        <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
       </ul>
 
     <li>Lecture 5
       <ul>
-        <li><a href="https://colab.research.google.com/drive/1VKgARIoBFHONuLSNBr0escmnOTUObOcE" target="_blank">Exercises notebook (also Problem set 5)</a></li>
-      <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
+        <li><a href="https://colab.research.google.com/drive/1VKgARIoBFHONuLSNBr0escmnOTUObOcE"
+            target="_blank">Exercises notebook (also Problem set 5)</a></li>
+        <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
       </ul>
     </li>
 
     <li>Lecture 6
       <ul>
-        <li><a href="https://colab.research.google.com/drive/173oAA4PxCPFkCwwYtUkAJhKAa5Twayax" target="_blank">Exercises notebook (also Problem set 6)</a></li>
-      <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
+        <li><a href="https://colab.research.google.com/drive/173oAA4PxCPFkCwwYtUkAJhKAa5Twayax"
+            target="_blank">Exercises notebook (also Problem set 6)</a></li>
+        <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
       </ul>
     </li>
 
-    
 
 
-    
+
+
 
 
     <!--<li><a href="https://colab.research.google.com/drive/10InLIsOkHCfyqvYkLEqohxALnDz_LEJ9#scrollTo=WQSy98dITPyW" target="_blank">Notebook 2: Uncertainty</a></li>-->
   </ul>
 
 
-<!-- <h2>Slides</h2>
+  <!-- <h2>Slides</h2>
   <ul>
     <li>
       <a href="https://kyleco.github.io/ec626-slides/slide-bank.html" target="_blank">
