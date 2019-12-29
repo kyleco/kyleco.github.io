@@ -55,6 +55,8 @@ _Estimators_ are functions of random variables that we use to estimate a populat
 
 ### Standard errors
 
-As mentioned above, an estimator is a random variable with a distribution. The standard deviation of an estimator has a special name: _standard error_. If our estimator is the sample mean $$\bar{Y}$$, then the standard error is $$\text{sd}(\bar{Y}) = \sqrt {\tfrac{\text{Var}(Y)}{N}}$$. Note that the standard error is a function of the parameters of the data-generating process ($$\text{Var}(Y)$$) and the sample size $$N$$. Therefore, we typically do not know the true standard error and must instead estimate it. The typical point estimator of the standard error of the mean is $$\hat{\text{sd}} (\bar{Y}) = \sqrt{\tfrac{\hat{\sigma}^2}{N}}$$ where $$\hat{\sigma}^2$$ is the usual, unbiased estimate of the variance of $$Y$$, that is, $$\tfrac{\sum_{i=1}^N (Y_i - \bar{Y})^2}{N-1}$$.
+As mentioned above, an estimator is a random variable with a distribution. The standard deviation of an estimator has a special name: _standard error_. The standard error tells us how precise our estimate is. A smaller standard error means our estimator has a narrower distribution and provides more precise estimates.
+
+If our estimator is the sample mean $$\bar{Y}$$, then the standard error is $$\text{sd}(\bar{Y}) = \sqrt {\tfrac{\text{Var}(Y)}{N}}$$. Note that the standard error is a function of the parameters of the data-generating process ($$\text{Var}(Y)$$) and the sample size $$N$$. Therefore, we typically do not know the true standard error and must instead estimate it. The typical point estimator of the standard error of the mean is $$\hat{\text{sd}} (\bar{Y}) = \sqrt{\tfrac{\hat{\sigma}^2}{N}}$$ where $$\hat{\sigma}^2$$ is the usual, unbiased estimate of the variance of $$Y$$, that is, $$\tfrac{\sum_{i=1}^N (Y_i - \bar{Y})^2}{N-1}$$.
 
 
