@@ -1,7 +1,7 @@
 ---
-title: Lesson 2 - Uncertainty
+title: Lesson 2 - Data and uncertainty
 author: Kyle Carlson
-layout: default
+layout: post
 ---
 {:auto_ids}
 
@@ -49,7 +49,9 @@ A simple data set would look like the following table. Here $$N$$ is the _sample
 
 ### Point estimators
 
-_Estimators_ are functions of random variables that we use to estimate a population parameter. For example, if we want to estimate the population parameter $$E[Y]$$ a natural estimator is the sample mean of $$Y_i$$. Conventionally, we use a bar symbol to denote the sample mean, so $$\bar{Y}=\tfrac{1}{N}\sum_{i=1,\ldots,N}{Y_i}$$. Note that we use uppercase because estimators are functions of _random_ variables. Therefore, estimators are also themselves random variables with distributions, which we study to know how well the estimator performs. When we think of a particular, fixed sample of data the corresponding quantity $$\bar{y}=\tfrac{1}{N}\sum_{i=1,\ldots,N}{y_i}$$ is called an _estimate_ and has a fixed value. Finally, you may also hear the term _estimand_, which refers to the parameter we want to estimate. In this example the estimand is the population mean $$E[Y]$$. 
+_Estimators_ are functions of random variables that we use to estimate a population parameter. For example, if we want to estimate the population parameter $$E[Y]$$ a natural estimator is the sample mean of $$Y_i$$. Conventionally, we use a bar symbol to denote the sample mean, so $$\bar{Y}=\tfrac{1}{N}\sum_{i=1,\ldots,N}{Y_i}$$. Another convention is to use "hat" symbol to indicate an estimator. For example, if our parameter is $$\mu = E[Y]$$ then we could denote the estimator of the paramter by $$\hat{\mu} = \bar{Y}$$.
+
+Note that we use uppercase because estimators are functions of _random_ variables. Therefore, estimators are also themselves random variables with distributions, which we study to know how well the estimator performs. When we think of a particular, fixed sample of data the corresponding quantity $$\bar{y}=\tfrac{1}{N}\sum_{i=1,\ldots,N}{y_i}$$ is called an _estimate_ and has a fixed value. Finally, you may also hear the term _estimand_, which refers to the parameter we want to estimate. In this example the estimand is the population mean $$E[Y]$$. 
 
 > Another way to think of this: An **estimator** is a **procedure**, and an **estimate** is the **result** of the procedure. 
 

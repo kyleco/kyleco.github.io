@@ -13,26 +13,39 @@ layout: default
 
   <h3>Lesson 1: Causality fundamentals</h3>
   <ul>
-    {% for lesson in site.lessons %}
-    {% if lesson.title == 'Lesson 1 - Causality fundamentals' %}
-
-    <li><a href="{{ lesson.url }}">Causality fundamentals notes</a></li>
-    <li>Reading: "Potential outcomes causal model" in SCMixtape</li>
-    <li>Supplemental reading: MWCCI, Part I "Counterfactual Causality and Empirical Research in the Social Sciences"
+    <li>Readings
+      <ul>
+        <li><a href="/lessons/lesson-01">Notes: Causality fundamentals</a></li>
+        <li>SCMixtape: "Potential outcomes causal model"</li>
+      </ul>
     </li>
-    {% endif %}
+    <li>Supplemental resources<ul>
+        <li>MWCCI, Part I "Counterfactual Causality and Empirical Research in the Social Sciences"</li>
 
-    {% endfor %}
+      </ul>
+    </li>
   </ul>
 
   <h3>Lesson 2: Random sampling and statistical tests</h3>
   <ul>
 
-    <li>Reading: PEEGES, Part II "The analysis of statistical power"</li>
-    <li>Optional review:<ul>
-        <li>Random variables and Python review <a
+
+    <li>Readings
+      <ul>
+        <li><a href="/lessons/lesson-02">Notes: Data and uncertainty</a></li>
+        <li>Simulating and analyzing random variables with Python<a
             href="https://colab.research.google.com/drive/1YqFxxVEr190PjuMUsxKaFmaUS7Gaa1qN">[Colab notebook]</a></li>
-        <li><i>Programming for Computations - Python: A gentle introduction to numerical simulations with Python 3.6</i> (Linge and Langtangen, <a href="https://link.springer.com/book/10.1007/978-3-030-16877-3">open access text</a>)</li>
+        <li>PEEGES, Part II, Chapter 3: "Power analysis and the detection of effects"</li>
+        <li>HFC, Sections 3.2 and 3.3, Sampling and error rates, (pages 26-39)</li>
+      </ul>
+    </li>
+    <li>Supplemental resources<ul>
+        <li><i>Programming for Computations - Python: A gentle introduction to numerical simulations with Python 3.6</i>
+          (Linge and Langtangen, <a href="https://link.springer.com/book/10.1007/978-3-030-16877-3">open access
+            text</a>)</li>
+        <li>HFC, Chapters 1-3. Chapter 1 is a short review of probability. Chapters 2 and 3 analyze experiment design
+          using the framework of signal detection theory. If you think having a slightly different perspective on the
+          problem is helpful, I recommend reading this.</li>
       </ul>
     </li>
   </ul>
@@ -114,7 +127,8 @@ layout: default
     <li>PEEGES = Paul Ellis. <i>The Essential Guide to Effect Sizes: Statistical Power, Meta-Analysis, and the
         Interpretation of Research Results.</i> Cambridge University Press, 2010.</li>
     <li>PIDT = Giovanni Parmigiani and Lurdes Inoue. <i>Decision Theory: Principles and Approaches.</i> Wiley, 2009.
-    <li>HFC = Herzog, Francis, and Clark. <a href="https://www.springer.com/gp/book/9783030034986"><i>Understanding Statistics and Experimental Design.</i></a>Springer, 2019. (Open Access)</li>
+    <li>HFC = Herzog, Francis, and Clark. <a href="https://www.springer.com/gp/book/9783030034986"><i>Understanding
+          Statistics and Experimental Design.</i></a>Springer, 2019. (Open Access)</li>
     </li>
 
   </ul>
@@ -160,8 +174,10 @@ layout: default
         <!-- <li><a href="lecture-01-discussions/">Readings and discussion questions</a></li> -->
       </ul>
     </li>
-    <li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI"  target="_blank">Lesson 4: Practical  complications and biased ATE estimates [Colab notebook]</a></li>
-    <li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI" target="_blank">Lesson 5: Practical  complications and inference [Colab notebook]</a></li>
+    <li><a href="https://colab.research.google.com/drive/1oi1otu_ssyO-RJsH0YANn7HYKcBHeRqI" target="_blank">Lesson 4:
+        Practical complications and biased ATE estimates [Colab notebook]</a></li>
+    <li><a href="https://colab.research.google.com/drive/15HffRKGBXlk_0u-IXvyza06y3Mt7_NTI" target="_blank">Lesson 5:
+        Practical complications and inference [Colab notebook]</a></li>
     <li>Lesson 6: Decision-making and experiments
       <ul>
         <li><a href="https://colab.research.google.com/drive/173oAA4PxCPFkCwwYtUkAJhKAa5Twayax"
