@@ -9,9 +9,9 @@ Choose one of these stories for your group discussion.
 Answer these questions about your study:
 
 0. What is the individual unit of the study? Each $$i$$ is what?
-1. What causal relationship is stated explicitly or implied by the study?
-2. What are $$Y^0$$ and $$Y^1$$? (Conceptually. Not actual numbers.)
-3. What is $$D$$?
+1. What are $$Y^0$$ and $$Y^1$$ in this study? (Conceptually. Not actual numbers.)
+2. What is the treatment ($$D$$)?
+3. What causal relationship is stated explicitly or implied by the study?
 4. Describe a mechanism that could cause selection bias in the story. Which direction does the bias go?
 5. Describe a mechanism that could cause differential effect bias. Which direction does the bias go?
 6. Describe what it would mean if the independence assumption was true in this study.
