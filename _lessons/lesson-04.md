@@ -30,13 +30,13 @@ Compliance refers to the question of whether the designed treatment groups in th
 
 # Compliance notation
 
-In the basic potential outcomes framework the treatment assignment $D_i$ is randomly assigned to each subject. We implicitly assumed that the assignment and actual treatments are identical. Now we relax that assumption, so we must enrich our mathematical framework.
+In the basic potential outcomes framework the treatment assignment $$D_i$$ is randomly assigned to each subject. We implicitly assumed that the assignment and actual treatments are identical. Now we relax that assumption, so we must enrich our mathematical framework.
 
-Let $Z_i$ indicate the assignment of subject $i$ as intended by the experiment designer. When treatment is assigned we have $Z_i=1$. When control is assigned we ahve $Z_i=0$. 
+Let $$Z_i$$ indicate the assignment of subject $$i$$ as intended by the experiment designer. When treatment is assigned we have $$Z_i=1$$. When control is assigned we have $$Z_i=0$$. 
 
-Let $D_i in {0, 1}$ be the actual treatment received. However, because $D_i$ can differ from the assignment, we now have _potential outcomes for the treatment_! $D^1$ is the actual treatment when the subject is assigned to the treatment group. $D^0$ is the actual treatment when the control group is assigned. There are four possible combinations of assignment, and they each have a name:
+Let $$D_i \in {0, 1}$$ be the actual treatment received. However, because $$D_i$$ can differ from the assignment, we now have _potential outcomes for the treatment_! $$D^1$$ is the actual treatment when the subject is assigned to the treatment group. $$D^0$$ is the actual treatment when the control group is assigned. There are four possible combinations of assignment, and they each have a name:
 
-1. _Compliers_: These subjects always do as they are assigned, so $D_i = Z_i$.
+1. _Compliers_: These subjects always do as they are assigned, so $$D_i = Z_i$$.
 2. _Never-Takers_: These subjects never take the treatment, so $$D^0_i=0$$ and $$D^1_i = 0$$.
 3. _Always-Takers_: These subjects always take the treatment, so $$D^0_i=1$$ and $$D^1_i = 1$$.
 4. _Defiers_: These subjects do the opposite of the assignment, so $$D^0_i=1$$ and $$D^1_i = 0$$.
