@@ -16,8 +16,7 @@ Compliance refers to the question of whether the designed treatment groups in th
 - The _assigned treatment_ is what the experiment designer _intends_ a subject to receive based on randomization.
 - The _actual treatment_ is the treatment the subject actually receives or experiences.
 - _Noncompliance_ refers to cases where the actual treatment does not match the assigned treatment. Subjects in the control group may accidentally receive the treatment. Alternatively, subjects in the treatment group may fail to receive the treatment.
-- _One-sided noncompliance_ means that only one of the groups in the experiment has noncompliance. Usually this means that some subjects in the treatment group fail to receive the treatment.
-
+- _One-sided noncompliance_ means that only one of the groups in the experiment has noncompliance. Usually we consider the case that some subjects in the treatment group fail to actually receive the treatment.
 
 # Examples of noncompliance
 
@@ -34,11 +33,16 @@ In the basic potential outcomes framework the treatment assignment $$D_i$$ is ra
 
 Let $$Z_i$$ indicate the assignment of subject $$i$$ as intended by the experiment designer. When treatment is assigned we have $$Z_i=1$$. When control is assigned we have $$Z_i=0$$. 
 
-Let $$D_i \in {0, 1}$$ be the actual treatment received. However, because $$D_i$$ can differ from the assignment, we now have _potential outcomes for the treatment_! $$D^1$$ is the actual treatment when the subject is assigned to the treatment group. $$D^0$$ is the actual treatment when the control group is assigned. There are four possible combinations of assignment, and they each have a name:
+Let $$D_i \in {0, 1}$$ be the actual treatment received. However, because $$D_i$$ can differ from the assignment, we now have _potential outcomes for the treatment_: $$(D_i^0, D_i^1)$$! $$D^1$$ is the actual treatment when the subject is assigned to the treatment group. $$D^0$$ is the actual treatment when the control group is assigned. 
+
+# Subject types
+
+There are four possible combinations of assignment and actual treatment, and they each have a name:
 
 1. _Compliers_: These subjects always do as they are assigned, so $$D_i = Z_i$$.
 2. _Never-Takers_: These subjects never take the treatment, so $$D^0_i=0$$ and $$D^1_i = 0$$.
 3. _Always-Takers_: These subjects always take the treatment, so $$D^0_i=1$$ and $$D^1_i = 1$$.
 4. _Defiers_: These subjects do the opposite of the assignment, so $$D^0_i=1$$ and $$D^1_i = 0$$.
 
-Compliers and never-takers are the most relevant types when we consider experimentation by internet companies. The typical problem is that some users of a product will be assigned to receive the treatment but not receive it. Often this happens because they do not use the feature of the product on which the experimental treatment is operative. In other words, online experimentation is typically afflicted by one-sided noncompliance with never-takers. The problem of always-takers and defiers is unlikely because it is difficult or impossible for a user to gain access to the experimental feature.
+Compliers and never-takers are the most relevant types when we consider experimentation in a software context. The typical problem is that some users of a product will be assigned to receive the treatment but not receive it. Often this happens because they do not use the feature of the product on which the experimental treatment is operative. In other words, online experimentation is typically afflicted by one-sided noncompliance with never-takers. The problem of always-takers and defiers is unlikely because it is difficult or impossible for a user to gain access to the experimental feature.
+
