@@ -44,7 +44,7 @@ There are four possible combinations of assignment and actual treatment, and the
 3. _Always-Takers_: These subjects always take the treatment, so $$D^0_i=1$$ and $$D^1_i = 1$$.
 4. _Defiers_: These subjects do the opposite of the assignment, so $$D^0_i=1$$ and $$D^1_i = 0$$.
 
-Compliers and never-takers are the most relevant types when we consider experimentation in a software context. The typical problem is that some users of a product will be assigned to receive the treatment but not receive it. Often this happens because they do not use the feature of the product on which the experimental treatment is operative. In other words, online experimentation is typically afflicted by one-sided noncompliance with never-takers. The problem of always-takers and defiers is unlikely because it is difficult or impossible for a user to gain access to the experimental feature.
+*Compliers* and *never-takers* are the most relevant types when we consider experimentation in a software context. The typical problem is that some users of a product will be assigned to receive the treatment but not receive it. Often this happens because they do not use the feature of the product on which the experimental treatment is operative. In other words, online experimentation is typically afflicted by one-sided noncompliance with never-takers. The problem of always-takers and defiers is unlikely because it is difficult or impossible for a user to gain access to the experimental feature.
 
 # Estimating treatment effects when there is one-sided non-compliance
 
