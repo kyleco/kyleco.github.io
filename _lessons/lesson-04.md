@@ -52,7 +52,7 @@ There are four possible combinations of assignment and actual treatment, and the
 
 ### Naive "as-treated" analysis
 
-The as-treated approach compares groups in terms of their actual treatment $$D_i$$, just as we have done throughout the class. We ignore non-compliance in the analysis. However, when there is non-compliance, our treatment and control groups are no longer correctly randomized. Each person's actual treatment $D_i$ may have an unknown correlation with other variables, including their potential outcomes. Non-compliance can invalidate the independence assumption $$(Y^0, Y^1) \perp D$$ because $D$ is no longer a simple, independent coin flip.
+The as-treated approach compares groups in terms of their actual treatment $$D_i$$, just as we have done throughout the class. We ignore non-compliance in the analysis. However, when there is non-compliance, our treatment and control groups are no longer correctly randomized. Each person's actual treatment $$D_i$$ may have an unknown correlation with other variables, including their potential outcomes. Non-compliance can invalidate the independence assumption $$(Y^0, Y^1) \perp D$$ because $$D$$ is no longer a simple, independent coin flip.
 
 ### Naive "per-protocol" analysis
 
