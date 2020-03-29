@@ -4,14 +4,14 @@ author: Kyle Carlson
 layout: default
 ---
 
-Choose one of these
+Choose one of these stories for your group discussion.
 
 Answer these questions about your study:
 
 0. What is the individual unit of the study? Each $$i$$ is what?
-1. What causal relationship is stated explicitly or implied by the study?
-2. What are $$Y^0$$ and $$Y^1$$? (Conceptually. Not actual numbers.)
-3. What is $$D$$?
+1. What are $$Y^0$$ and $$Y^1$$ in this study? (Conceptually. Not actual numbers.)
+2. What is the treatment ($$D$$)?
+3. What causal relationship is stated explicitly or implied by the study?
 4. Describe a mechanism that could cause selection bias in the story. Which direction does the bias go?
 5. Describe a mechanism that could cause differential effect bias. Which direction does the bias go?
 6. Describe what it would mean if the independence assumption was true in this study.
@@ -37,12 +37,24 @@ News link: [https://www.sciencealert.com/switch-your-desk-up-if-you-want-to-stud
 Study link: [https://www.mdpi.com/1660-4601/13/1/59](https://www.mdpi.com/1660-4601/13/1/59)
 <!-- https://www.healthline.com/health-news/social-media-use-increases-depression-and-loneliness#Our-curated-lives -->
 
-### Study 4: Marketing e-mails
+### Study 4: Activist campaigns on social media
+"Specifically, researchers at University of Southern California found viewing viral videos of police shootings and detained immigrants are associated with depressive and PTSD symptoms in adolescents of color."
+
+News link: [https://www.mediapost.com/publications/article/336890/activist-campaigns-have-unforeseen-negative-impact.html](https://www.mediapost.com/publications/article/336890/activist-campaigns-have-unforeseen-negative-impact.html)
+
+Study link: [https://www.sciencedirect.com/science/article/pii/S1054139X19301648](https://www.sciencedirect.com/science/article/pii/S1054139X19301648)
+
+### Study 5: Preschoolers' use of phones and tablets
+"The Relation Between Use of Mobile Electronic Devices and Bedtime Resistance, Sleep Duration, and Daytime Sleepiness Among Preschoolers"
+
+Study link: [https://www.tandfonline.com/doi/full/10.1080/10410236.2017.1422102](https://www.tandfonline.com/doi/full/10.1080/10410236.2017.1422102)
+
+### Study 6: Marketing e-mails
 "When we analyzed the data from over 5,000 campaigns we found something powerful: campaigns with images had a 42% higher click-through rate than campaigns without images."
 
 Blog link: [https://www.getvero.com/resources/increase-email-click-through-rates/](https://www.getvero.com/resources/increase-email-click-through-rates/)
 
-### Study 5: Uber/Lyft and traffic
+### Study 7: Uber/Lyft and traffic
 _Warning: This one is conceptually more vague and difficult._
 "Uber and Lyft are creating more traffic and congestion instead of reducing it, according to a new report"
 News link: [https://www.businessinsider.com/uber-lyft-creating-traffic-cities-bruce-schaller-2018-7](https://www.businessinsider.com/uber-lyft-creating-traffic-cities-bruce-schaller-2018-7)
