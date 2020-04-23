@@ -68,7 +68,7 @@ kramdown:
     # Use existing pygments syntax highlighting css
     css_class: 'highlight'
 
-remote_theme: clayh53/tufte-jekyll
+theme: minimal
 
 # Set the Sass partials directory, as we're using @imports
 sass:
