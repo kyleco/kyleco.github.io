@@ -1,5 +1,5 @@
 ---
-title: Panel data estimators in A/B tests
+title: Boosting A/B test power with panel data models
 author: Kyle Carlson
 layout: post
 ---
@@ -8,12 +8,12 @@ In A/B testing we want to use methods with high statistical power because it acc
 
 Where do these methods apply? Imagine we are experimenting on a website where people can post messages. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally grouped by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that each person has an individual propensity to post. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
 
-### Key lessons and recommendations 
+### Key lessons
 1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less* efficient than a simple regression. To choose between fixed effects or simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
 2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
 3. But, if you include covariates in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met.
 
-## What are these models?
+## Introducing the models
 
 Fixed effects and random effects are both ways of modeling unobserved heterogeneity. In our example scenario, this means each person has an individual propensity to post a message, but we have no data directly telling us that propensity. Generically, the model looks like
 
@@ -68,20 +68,28 @@ where
 2. The distribution of visits per person has as mixture distribution: $$T_i \sim \text{Poisson}(\mu_i), \mu_i \sim \text{Exponential}(\lambda)$$,
 3. The treatment is assigned by coinflip on each visit, $$d_{it} \sim \text{Bernoulli}(0.5)$$,
 4. There is a constant additive treatment effect $$\beta = 0.04$$, and
-5. The individual propensities to post are distributed symmetrically, $$c_i \sim \text{Beta}(\alpha, \alpha)$$ scaled between 0.05 and 0.95}, 
+5. The individual propensities to post are distributed symmetrically, $$c_i \sim \text{Beta}(\alpha, \alpha)$$ rescaled s.t. $$c_i \in [0.05, 0.95]$$. 
 
 <!-- - $$\beta = 0.04$$
 - $$c_i \sym \text{Beta}(\alpha, \alpha)\text{scaled between 0.05 and 0.95}$$
 - $$i \in 1,2,3,\ldots,100$$
 - $$T_i \sym \text{Poisson}(\mu_i), \lambda\sym\text{Exponential}(\lambda)$$. -->
-
-
-
-
 <!-- #### Simple regression (pooled OLS) -->
 
+### Individual heterogeneity
+
+What happens if we adjust the variance of $$c_i$$? In the first panel below we have three example distributions of $$c_i$$ showing low, medium, and high heterogeneity. The second panel shows the precision of the estimators as the heterogeneity ranges from low to high. At low levels of heterogeneity the standard error of the fixed effects estimator is far higher than the other estimators. However, as the heterogneity increases both the fixed effects and random effects estimators increase greatly in precision, while the simple regression has no increase in performance.
+
 ![se_by_sigma_c]({{ site.url }}/images/se_by_sigma_c.svg){: .center-image width="100%"}
+
+### Visits per person
+
+The other factor of interest is the number of visits per person. Below we vary the average number of visits from 1 to 33. The first panel again shows example distributions, one with a small number of visits per person and the other with a larger number. The second panel reports the efficiency of each estimator relative to the random effects estimator, in particular, the "Fixed effects" plot is $$\tfrac{\text{Var}(\hat{\beta}_\text{RE})}{\text{Var}(\hat{\beta}_\text{FE})}$$. 
+
 ![se_by_group_size]({{ site.url }}/images/se_by_group_size.svg){: .center-image width="100%"}
+
+
+
 <!-- ![heterogeneity]({{ site.url }}/images/heterogeneity.svg){: .center-image width="100%"}
 ![group_size]({{ site.url }}/images/group_size.svg){: .center-image width="100%"} -->
 
@@ -89,7 +97,7 @@ where
 
 <!-- On each visit the web site flips a coin and shows the old version of the site (control) or the new one (treatment). We hope the new version increases the probability of a post on each visit. -->
 
-
+<!-- 
 ## Key lessons
 - Pooled OLS, fixed effects, and random effects all consistently estimate the treatment effect in a randomized experiment. Textbook treatments focus on the conditions for consistency but we do not need to worry about this. Our choice can be driven by efficiency and practicality. 
 - In randomized experiments (A/B tests) the distribution of group sizes can be very skewed and there can be substantial heterogeneity between groups. These influence the relative performance of estimators. Fortunately, in many settings an experimenter can use previous data to know which model will perform best.
@@ -138,4 +146,4 @@ where $$\nu_{it}=c_i + \epsilon_{it}$$.
 ## Technical detail
 
 The number of persons is $$n$$. Each person $$i$$ has $$T_i$$ observations indexed by $$(i, t)$$. The total number of observations is $$N = \sum_i T_i$$. Each observation has a binary outcome $$Y_{it} \in \{0 (\text{failure}), 1 (\text{success})\}$$ and treatment indicator $$D_{it}$$. The treatment $$D_{it}$$ is assigned like a coin flip, independently of all other variables.
-
+ -->
