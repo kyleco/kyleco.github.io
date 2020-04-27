@@ -1,7 +1,7 @@
 ---
 title: Lesson 0 - Introduction and pre-requisites
 author: Kyle Carlson
-layout: default
+layout: teaching
 ---
 {:auto_ids}
 
