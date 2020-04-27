@@ -23,11 +23,12 @@ body {
 	background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
+  line-height: 195%;
 }
 
 .container {
   margin: 0 auto;
-  max-width: 740px;
+  max-width: 960px;
   padding: 0 10px;
   width: 100%;
 }
@@ -110,6 +111,12 @@ strong, b {
 
 img {
   max-width: 100%;
+}
+
+.center-image
+{
+    margin: 0 auto;
+    display: block;
 }
 
 // Fixes images in popup boxes from Google Translate
