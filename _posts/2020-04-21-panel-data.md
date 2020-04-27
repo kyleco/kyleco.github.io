@@ -2,11 +2,15 @@
 title: Boosting A/B test power with panel data models
 author: Kyle Carlson
 layout: post
+excerpt_separator: <!--more-->
 ---
 
-![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="100%"}
+You can boost statistical power by modeling the heterogeneity of your users.
 
-In A/B testing we want to use methods with high statistical power because it accelerates our rate of experimentation and product improvement. This post explains how you can improve the power of your A/B tests using tools that should be familiar to anyone who has taken an econometrics course: ordinary regression, fixed effects, and random effects. These methods are all "correct"[^1], but the best one depends on the specifics of your data. We will use simulation and theory to learn several key lessons about these models. 
+![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="90%"}
+<!--more-->
+
+In A/B testing we want to use methods with high statistical power because it accelerates our rate of experimentation and product improvement. This post explains how you can improve the power of your A/B tests using tools that should be familiar to anyone who has taken an econometrics course: ordinary regression, fixed effects, and random effects. These methods are all "correct" [[^1]], but the best one depends on the specifics of your data. We will use simulation and theory to learn several key lessons about these models. 
 
 Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally grouped by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that there is heterogeneity. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
 
