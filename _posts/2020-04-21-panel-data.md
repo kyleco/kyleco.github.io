@@ -4,18 +4,20 @@ author: Kyle Carlson
 layout: post
 ---
 
-In A/B testing we want to use methods with high statistical power because it accelerates our rate of experimentation and product improvement. This post explains how you can improve the power of your A/B tests using tools that should be familiar to anyone who has taken an econometrics course: ordinary regression, fixed effects, and random effects model. These methods are all "correct", but the best one depends on the specifics of your data. We will use simulation to learn several key lessons about these models. 
+![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="100%"}
 
-Where do these methods apply? Imagine we are experimenting on a website where people can post messages. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally grouped by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that each person has an individual propensity to post. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
+In A/B testing we want to use methods with high statistical power because it accelerates our rate of experimentation and product improvement. This post explains how you can improve the power of your A/B tests using tools that should be familiar to anyone who has taken an econometrics course: ordinary regression, fixed effects, and random effects. These methods are all "correct"[^1], but the best one depends on the specifics of your data. We will use simulation and theory to learn several key lessons about these models. 
+
+Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally grouped by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that there is heterogeneity. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
 
 ### Key lessons
-1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less* efficient than a simple regression. To choose between fixed effects or simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
+1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less(!)* efficient than a simple regression. To choose between fixed effects and simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
 2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
 3. But, if you include covariates in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met.
 
 ## Introducing the models
 
-Fixed effects and random effects are both ways of modeling unobserved heterogeneity. In our example scenario, this means each person has an individual propensity to post a message, but we have no data directly telling us that propensity. Generically, the model looks like
+Fixed effects and random effects are both ways of modeling unobserved heterogeneity. In our example scenario, this means each person has an individual propensity to post a photo, but we have no data directly telling us that propensity. Generically, the model looks like
 
 $$
 y_{it} = \alpha + d_{it} \beta + c_i + \epsilon_{it}
@@ -52,6 +54,7 @@ $$
 
 The parameter $$\hat{\omega}$$ controls how much of the within and between variation are used by $$\hat{\beta}_{\text{RE}}$$. As $$\hat{\omega}\rightarrow 1$$, then the random effects estimator approaches the between estimator. But, as $$\hat{\omega}\rightarrow 0$$, then the random effects estimator approaches the fixed effects estimator. To make $$\hat{\omega}$$ small, we need to have a high number of visits per person ($$T$$) or large heterogeneity between people ($$\hat{\sigma}^2_{c}$$).   
 
+The downside of the random effects estimator, and why it is used far less frequently than fixed effects, is that it requires a very strong exogeneity assumption. In particular, the regressors must be unrelated to the individual heterogeneity. For an A/B test, $$d_{it}$$ is an independent coinflip, so it is independent of $$c_i$$. That's great, but we will probably be in trouble if we want to include any other covariates in the model. In that case, fixed effects will be preferrable.
 
 ## Simulations
 
@@ -78,17 +81,38 @@ where
 
 ### Individual heterogeneity
 
-What happens if we adjust the variance of $$c_i$$? In the first panel below we have three example distributions of $$c_i$$ showing low, medium, and high heterogeneity. The second panel shows the precision of the estimators as the heterogeneity ranges from low to high. At low levels of heterogeneity the standard error of the fixed effects estimator is far higher than the other estimators. However, as the heterogneity increases both the fixed effects and random effects estimators increase greatly in precision, while the simple regression has no increase in performance.
+What happens if we adjust the variance of $$c_i$$? In the first panel below we have three example distributions of $$c_i$$ showing low, medium, and high heterogeneity. The second panel shows the precision of the estimators as the heterogeneity ranges from low to high. At low levels of heterogeneity the standard error of the fixed effects estimator is much larger than the other estimators. However, as the heterogneity increases both the fixed effects and random effects estimators increase greatly in precision, while the simple regression has no increase in performance.
 
 ![se_by_sigma_c]({{ site.url }}/images/se_by_sigma_c.svg){: .center-image width="100%"}
 
+You can estimate the heterogeneity after a random effects model using the `variance_decomposition` property. The results would look something like this. The value after "Effects" is $$\hat{\sigma}^2_c$$.
+```python
+r = RandomEffects(y, exog).fit()
+print(r.variance_decomposition)
+
+Effects                   0.168079
+Residual                  0.086765
+Percent due to Effects    0.659536
+Name: Variance Decomposition, dtype: float64
+```
+
 ### Visits per person
 
-The other factor of interest is the number of visits per person. Below we vary the average number of visits from 1 to 33. The first panel again shows example distributions, one with a small number of visits per person and the other with a larger number. The second panel reports the efficiency of each estimator relative to the random effects estimator, in particular, the "Fixed effects" plot is $$\tfrac{\text{Var}(\hat{\beta}_\text{RE})}{\text{Var}(\hat{\beta}_\text{FE})}$$. 
+The other factor of interest is the number of visits per person. Below we vary the average number of visits from 2 to 33. The first panel again shows example distributions, one with a small number of visits per person and the other with a larger number. The second panel reports the efficiency of each estimator relative[[^2]] to the random effects estimator, in particular, the "Fixed effects" plot is $$\tfrac{\text{Var}(\hat{\beta}_\text{RE})}{\text{Var}(\hat{\beta}_\text{FE})}$$. 
 
 ![se_by_group_size]({{ site.url }}/images/se_by_group_size.svg){: .center-image width="100%"}
 
 
+## Conclusion
+
+When our experiment has grouped data and heterogeneity, we can increase our statistical power by applying the standard panel data models from our econometrics training.[^3] The familiar fixed effects model can help or hurt significantly. To understand that we developed simulations and intuition about the key factors: group size and degree of heterogeneity. We also saw that the random effects model automatically adapts based on those factors, in effect, making the choice for us. 
+
+[^1]: By "correct" we mean that they give us consistent estimates of the treatment effect.
+
+[^2]: We report relative efficiency because in this case it makes the pattern easier to see than reporting the raw standard errors.
+
+
+[^3]: In other contexts these models are called hierarchical models or multilevel models.
 
 <!-- ![heterogeneity]({{ site.url }}/images/heterogeneity.svg){: .center-image width="100%"}
 ![group_size]({{ site.url }}/images/group_size.svg){: .center-image width="100%"} -->
