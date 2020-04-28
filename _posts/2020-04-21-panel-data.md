@@ -23,7 +23,10 @@ However, we need to think carefully about applying these models because of two *
 2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
 3. But, if you include covariates in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met.
 
-The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf).
+
+### Code and implementation
+
+The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). The models are fit using the `linearmodels` package, but can also be cooked up with `statsmodels`. For implementation details, good sources include the `linearmodel` docs and source along with the [State doc for `xtreg`](https://www.stata.com/manuals13/xtxtreg.pdf).
 
 ## Introducing the models
 
