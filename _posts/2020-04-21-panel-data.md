@@ -26,7 +26,7 @@ However, we need to think carefully about applying these models because of two *
 
 ### Code and implementation
 
-The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). The models are fit using the `linearmodels` package, but can also be cooked up with `statsmodels`. For implementation details, good sources include the `linearmodel` docs and source along with the [State doc for `xtreg`](https://www.stata.com/manuals13/xtxtreg.pdf).
+The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). The models are fit using the `linearmodels` package, but can also be cooked up with `statsmodels`. For implementation details, good sources include the `linearmodel` docs and source along with the [Stata doc for `xtreg`](https://www.stata.com/manuals13/xtxtreg.pdf).
 
 ## Introducing the models
 
