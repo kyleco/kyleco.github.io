@@ -5,58 +5,61 @@ layout: post
 excerpt_separator: <!--more-->
 ---
 
-You can boost statistical power by modeling the heterogeneity of your users.
+*You can boost statistical power by modeling the heterogeneity of your users.*
 
 ![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="90%"}
 <!--more-->
 
 In A/B testing we want to use methods with high statistical power because it accelerates our rate of experimentation and product improvement. This post explains how you can improve the power of your A/B tests using tools that should be familiar to anyone who has taken an econometrics course: ordinary regression, fixed effects, and random effects. These methods are all "correct" [[^1]], but the best one depends on the specifics of your data. We will use simulation and theory to learn several key lessons about these models. 
 
-Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally grouped by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that there is heterogeneity. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
+Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally **grouped** by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that there is **heterogeneity**. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
+
+However, we need to think carefully about applying these models because of two *practical complications* in our A/B test setting. First, the number of visits per person is likely to be very skewed. Many, even most, people may only visit one time. The standard panel data model, fixed effects, throws away that data. Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data. We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
 
 ### Key lessons
 1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less(!)* efficient than a simple regression. To choose between fixed effects and simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
 2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
 3. But, if you include covariates in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met.
 
+The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf).
+
 ## Introducing the models
 
 Fixed effects and random effects are both ways of modeling unobserved heterogeneity. In our example scenario, this means each person has an individual propensity to post a photo, but we have no data directly telling us that propensity. Generically, the model looks like
 
 $$
-y_{it} = \alpha + d_{it} \beta + c_i + \epsilon_{it}
+y_{it} = d_{it} \beta + c_i + \epsilon_{it}
 $$
 
-where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. The treatment dummy is $$d_{it}$$. The corresponding treatment effect is $$\beta$$ is our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s baseline tendency.
+where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. The treatment dummy is $$d_{it}$$. The corresponding treatment effect is $$\beta$$ is our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s personal tendency to share photos.
 
-Given this underlying model, let's consider three ways to estimate $$\beta$$. 
+Given this underlying model, let's consider four ways to estimate $$\beta$$. The key differences behind them are how they treat variation between and within persons. Between variation refers to the fact that some persons post more than others and some persons are more exposed to the treatment than others. Within variation refers to the fact that *a given person* posts on some visits but not on others and sees the treatment version of the site on some visits and not on others. These two types of variation can be used to estimate the treatment effect, and each of the four models uses the variation in different ways.[[^9]]
 
 ### Simple regression (pooled OLS)
-Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regression of $$y$$ on $$d$$. This is mathematically equivalent to comparing the averages of $$y$$ between the control and treatment groups. The regression we are fitting combines $$c_i + \epsilon_{it}$$ into a single error term: $$y_{it} = \alpha + d_{it} \beta + \nu_{it}$$. Because we are ignoring the individual heterogeneity, it goes into our residuals and inflates their variance. That increases the variance of our estimator.
+Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regression of $$y$$ on $$d$$. This is mathematically equivalent to comparing the averages of $$y$$ between the control and treatment groups. It combines both within and between variation. The regression we are fitting combines $$c_i + \epsilon_{it}$$ into a single error term: $$y_{it} = d_{it} \beta + \nu_{it}$$. Because we are ignoring the individual heterogeneity, it goes into our residuals and inflates their variance. In turn, the the variance of our estimator increases and power decreases.
 
 ### Fixed effects ("within estimator")
-The intuition of fixed effects is that each individual is treated as their own control group. This makes each person's individual propensity irrelevant. We can implement the fixed effects estimator $$\hat{\beta}_{\text{FE}}$$ by substracting the person-specific averages from all of our data. We would regress $$y_{it} - \bar{y}_i$$ on $$d_{it} - \bar{d}_i$$. The "demeaning" also subtracts away the term $$c_i$$. This _potentially_ reduces the residual variance and increases precision.
+The intuition of fixed effects is that each individual is treated as their own control group, thus exploiting only the within variation. This makes each person's individual propensity irrelevant. We can implement the fixed effects estimator $$\hat{\beta}_{\text{FE}}$$ by substracting the person-specific averages from all of our data. We would regress $$y_{it} - \bar{y}_i$$ on $$d_{it} - \bar{d}_i$$. The "demeaning" also subtracts away the term $$c_i$$. This _potentially_ reduces the residual variance and increases precision.
 
-For the idea of fixed effects to work, some individuals must see both the control and treatment sites. In our experiment scenario we face the problem that some individuals may see only one variant. That happens if they visit just one time or happen to get the same coin flip on every visit. The fixed effects estimator ignores these individuals, which decreases our effective sample size.
+For fixed effects to work, some individuals must see both the control and treatment sites. In our experiment scenario we face the problem that some individuals may see only one variant. That happens if they visit just one time or happen to get the same coin flip on every visit. The fixed effects estimator ignores these individuals, which decreases our effective sample size.
 
 ### Between estimator
-The between estimator $$\hat{\beta}_{\text{BE}}$$ is the complement of the within estimator. It uses only the variation between individuals and discards the within-person variation. We can implement it by averaging all our data to the person-level and then running a regression. That is, we fit the regression $$\bar{y}_i = \alpha + \bar{d}_i \beta + \bar{\nu}_i$$. For this model to work, we must have variation in $$\bar{d}_i$$, the higher proportion of visits to the control site. That will happen as a consequence of the control/treatment assignment being made by independent coinflips.
+The between estimator $$\hat{\beta}_{\text{BE}}$$ is the complement of the within estimator. It uses only the variation between individuals and discards the within-person variation. We can implement it by averaging all our data to the person-level and then running a regression. That is, we fit the regression $$\bar{y}_i = \alpha + \bar{d}_i \beta + \bar{\nu}_i$$. For this model to work, we must have variation in $$\bar{d}_i$$. In proportion of visits to the treatment site must be higher for some persons than others. That will happen as a consequence of the control/treatment assignment being made by independent coinflips, generating a mixture of binomial ditributions. The between estimator is rarely used in practice, but it is an ingredient in the random effects estimator.
 
 ### Random effects
-
 We said that the fixed effects and between estimators use different sources of variation in the data to estimate the treatment effect. What if we could combine both to get a better estimate? This is what random effects does! In fact, the random effects estimator is an average of the fixed effects and between estimators. The average uses a weighting matrix $$A(\hat{\omega})$$ which adapts to the relative amounts of between and within variation and number of observations per group:
 
 $$
 \hat{\beta}_{\text{RE}} = A(\hat{\omega}) \hat{\beta}_{\text{FE}} + (I - A(\hat{\omega}))\hat{\beta}_{\text{BE}}
 $$
 
-The key parameter is 
+The key parameter[[^11]] is 
 
 $$
 \hat{\omega} = \tfrac{\hat{\sigma}_{\epsilon}}{\sqrt{T\hat{\sigma}^2_{c} + \hat{\sigma}^2_{\epsilon}}} = \tfrac{\text{Within residual variation}}{\sqrt{\text{Number of visits per person}\times \text{Heterogeneity} + \text{Within residual variance}}}.
 $$
 
-The parameter $$\hat{\omega}$$ controls how much of the within and between variation are used by $$\hat{\beta}_{\text{RE}}$$. As $$\hat{\omega}\rightarrow 1$$, then the random effects estimator approaches the between estimator. But, as $$\hat{\omega}\rightarrow 0$$, then the random effects estimator approaches the fixed effects estimator. To make $$\hat{\omega}$$ small, we need to have a high number of visits per person ($$T$$) or large heterogeneity between people ($$\hat{\sigma}^2_{c}$$).   
+The parameter $$\hat{\omega}$$ controls how much of the within and between variation are used by $$\hat{\beta}_{\text{RE}}.$$ As $$\hat{\omega}\rightarrow 1$$, the random effects estimator approaches the between estimator. But, as $$\hat{\omega}\rightarrow 0$$, then the random effects estimator approaches the fixed effects estimator. To make $$\hat{\omega}$$ small, we need to have a high number of visits per person ($$T$$) or large heterogeneity between people ($$\hat{\sigma}^2_{c}$$).   
 
 The downside of the random effects estimator, and why it is used far less frequently than fixed effects, is that it requires a very strong exogeneity assumption. In particular, the regressors must be unrelated to the individual heterogeneity. For an A/B test, $$d_{it}$$ is an independent coinflip, so it is independent of $$c_i$$. That's great, but we will probably be in trouble if we want to include any other covariates in the model. In that case, fixed effects will be preferrable.
 
@@ -85,7 +88,7 @@ where
 
 ### Individual heterogeneity
 
-What happens if we adjust the variance of $$c_i$$? In the first panel below we have three example distributions of $$c_i$$ showing low, medium, and high heterogeneity. The second panel shows the precision of the estimators as the heterogeneity ranges from low to high. At low levels of heterogeneity the standard error of the fixed effects estimator is much larger than the other estimators. However, as the heterogneity increases both the fixed effects and random effects estimators increase greatly in precision, while the simple regression has no increase in performance.
+What happens if we adjust the variance of $$c_i$$? In the first panel below we have three example distributions of $$c_i$$ showing low, medium, and high heterogeneity. The second panel shows the precision of the estimators as the heterogeneity ranges from low to high. At low levels of heterogeneity the standard error of the fixed effects estimator is much larger than the other estimators. However, as the heterogneity increases both the fixed effects and random effects estimators increase greatly in precision, while the simple regression has no change in performance.[[^10]]
 
 ![se_by_sigma_c]({{ site.url }}/images/se_by_sigma_c.svg){: .center-image width="100%"}
 
@@ -109,12 +112,21 @@ The other factor of interest is the number of visits per person. Below we vary t
 
 ## Conclusion
 
-When our experiment has grouped data and heterogeneity, we can increase our statistical power by applying the standard panel data models from our econometrics training.[^3] The familiar fixed effects model can help or hurt significantly. To understand that we developed simulations and intuition about the key factors: group size and degree of heterogeneity. We also saw that the random effects model automatically adapts based on those factors, in effect, making the choice for us. 
+When our experiment has grouped data and heterogeneity, we can increase our statistical power by applying the standard panel data models from our econometrics training.[[^3]] The familiar fixed effects model can help or hurt significantly. To understand that we developed simulations and intuition about the key factors: group size and degree of heterogeneity. We also saw that the random effects model automatically adapts based on those factors, in effect, making the choice for us.
+
+This post only scratches the surface of these types of models. Practitioners should use simulations with realistic data-generating processes inspired by their data, rather than the stylized, toy processes here. We also made simplifications, for example, choosing a constant additive treatment effect rather than a heterogeneous treatment effect (that could also be correlated with the heterogeneity in intercepts!). Finally, we also ignored the complicated matter of estimating of standard errors. These matters are left to future posts.
 
 [^1]: By "correct" we mean that they give us consistent estimates of the treatment effect.
 
-[^2]: We report relative efficiency because in this case it makes the pattern easier to see than reporting the raw standard errors.
+[^9]: A comprehensive reference for these models is *Econometric Analysis of Cross Section and Panel Data, Second Edition* (2010) by Jeffrey M. Wooldridge. See also *An Introduction to Classical Econometric Theory* (2000) by Paul A. Ruud for more depth on random effects.
 
+## Notes
+
+[^10]: It may be surprising that adjusting the heterogeneity has no effect on the pooled OLS estimator. Adding variation *should* increase the variance of the estimator. However, since this is a linear probability model that combined residual variance in constant. Adjusting the heterogeneity simply apportions variance between the individual effects and the indiosyncratic effects.
+
+[^11]: The formula for $$\hat{\omega}$$ is simplified for presentation by assuming $$T_i=T$$, i.e., that all persons visited the same number of times (a balanced panel). 
+
+[^2]: We report relative efficiency because in this case it makes the pattern easier to see than reporting the raw standard errors.
 
 [^3]: In other contexts these models are called hierarchical models or multilevel models.
 
