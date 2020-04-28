@@ -52,19 +52,23 @@ For fixed effects to work, some individuals must see both the control and treatm
 The between estimator $$\hat{\beta}_{\text{BE}}$$ is the complement of the within estimator. It uses only the variation between individuals and discards the within-person variation. We can implement it by averaging all our data to the person-level and then running a regression. That is, we fit the regression $$\bar{y}_i = \alpha + \bar{d}_i \beta + \bar{\nu}_i$$. For this model to work, we must have variation in $$\bar{d}_i$$. In proportion of visits to the treatment site must be higher for some persons than others. That will happen as a consequence of the control/treatment assignment being made by independent coinflips, generating a mixture of binomial ditributions. The between estimator is rarely used in practice, but it is an ingredient in the random effects estimator.
 
 ### Random effects
-We said that the fixed effects and between estimators use different sources of variation in the data to estimate the treatment effect. What if we could combine both to get a better estimate? This is what random effects does! In fact, the random effects estimator is an average of the fixed effects and between estimators. The average uses a weighting matrix $$A(\hat{\omega})$$ which adapts to the relative amounts of between and within variation and number of observations per group:
+We said that the fixed effects and between estimators use different sources of variation in the data to estimate the treatment effect. What if we could combine both to get a better estimate? This is what random effects does! In fact, the random effects estimator is an average of the fixed effects and between estimators:[[^14]]
+
+<!-- . The average uses a weighting matrix $$A(\hat{\omega})$$ which adapts to the relative amounts of between and within variation and number of observations per group: -->
 
 $$
-\hat{\beta}_{\text{RE}} = A(\hat{\omega}) \hat{\beta}_{\text{FE}} + (I - A(\hat{\omega}))\hat{\beta}_{\text{BE}}
+\hat{\beta}_{\text{RE}} = \text{WeightedAverage}(\hat{\beta}_{\text{FE}}, \hat{\beta}_{\text{BE}})
 $$
 
-The key parameter[[^11]] is 
+<!-- A(\hat{\omega}) \hat{\beta}_{\text{FE}} + (I - A(\hat{\omega}))\hat{\beta}_{\text{BE}} -->
+
+The weighting of the average adapts to the relative amounts of between and within variation and number of observations per group. The key weighting parameter[[^11]] is: 
 
 $$
 \hat{\omega} = \tfrac{\hat{\sigma}_{\epsilon}}{\sqrt{T\hat{\sigma}^2_{c} + \hat{\sigma}^2_{\epsilon}}} = \tfrac{\text{Within residual variation}}{\sqrt{\text{Number of visits per person}\times \text{Heterogeneity} + \text{Within residual variance}}}.
 $$
 
-The parameter $$\hat{\omega}$$ controls how much of the within and between variation are used by $$\hat{\beta}_{\text{RE}}.$$ As $$\hat{\omega}\rightarrow 1$$, the random effects estimator approaches the between estimator. But, as $$\hat{\omega}\rightarrow 0$$, then the random effects estimator approaches the fixed effects estimator. To make $$\hat{\omega}$$ small, we need to have a high number of visits per person ($$T$$) or large heterogeneity between people ($$\hat{\sigma}^2_{c}$$).   
+The parameter $$\hat{\omega}$$ controls how much of the within and between variation are used by $$\hat{\beta}_{\text{RE}}.$$ (Think [inverse-variance weighting!](https://en.wikipedia.org/wiki/Inverse-variance_weighting)) As $$\hat{\omega}\rightarrow 1$$, the random effects estimator approaches the between estimator. But, as $$\hat{\omega}\rightarrow 0$$, the random effects estimator approaches the fixed effects estimator. To make $$\hat{\omega}$$ small, we need to have a high number of visits per person ($$T$$) or large heterogeneity between people ($$\hat{\sigma}^2_{c}$$). Intuitively, if there is a lot of heterogeneity between people, we should weight more heavily the fixed effects estimator, which subtracts away that heterogeneity.  
 
 The downside of the random effects estimator, and why it is used far less frequently than fixed effects, is that it requires a very strong exogeneity assumption. In particular, the regressors must be unrelated to the individual heterogeneity. For an A/B test, $$d_{it}$$ is an independent coinflip, so it is independent of $$c_i$$. That's great, but we will probably be in trouble if we want to include any other covariates in the model. In that case, fixed effects will be preferrable.
 
@@ -121,11 +125,11 @@ When our experiment has grouped data and heterogeneity, we can increase our stat
 
 This post only scratches the surface of these types of models. Practitioners should use simulations with realistic data-generating processes inspired by their data, rather than the stylized, toy processes here. We also made simplifications, for example, choosing a constant additive treatment effect rather than a heterogeneous treatment effect (that could also be correlated with the heterogeneity in intercepts!). Finally, we also ignored the complicated matter of estimating of standard errors. These matters are left to future posts.
 
+## Notes
+
 [^1]: By "correct" we mean that they give us consistent estimates of the treatment effect.
 
 [^9]: A comprehensive reference for these models is *Econometric Analysis of Cross Section and Panel Data, Second Edition* (2010) by Jeffrey M. Wooldridge. See also *An Introduction to Classical Econometric Theory* (2000) by Paul A. Ruud for more depth on random effects.
-
-## Notes
 
 [^10]: It may be surprising that adjusting the heterogeneity has no effect on the pooled OLS estimator. Adding variation *should* increase the variance of the estimator. However, since this is a linear probability model that combined residual variance in constant. Adjusting the heterogeneity simply apportions variance between the individual effects and the indiosyncratic effects.
 
@@ -134,6 +138,8 @@ This post only scratches the surface of these types of models. Practitioners sho
 [^2]: We report relative efficiency because in this case it makes the pattern easier to see than reporting the raw standard errors.
 
 [^3]: In other contexts these models are called hierarchical models or multilevel models.
+
+[^14]: For more details on the math of the RE estimator see Ruud (2000) mentioned above or these [lecture notes from James Powell at Berkeley](https://eml.berkeley.edu/~powell/e240b_sp10/pdnotes.pdf). 
 
 <!-- ![heterogeneity]({{ site.url }}/images/heterogeneity.svg){: .center-image width="100%"}
 ![group_size]({{ site.url }}/images/group_size.svg){: .center-image width="100%"} -->
