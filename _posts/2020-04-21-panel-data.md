@@ -16,12 +16,12 @@ In A/B testing we want to use methods with high statistical power because it acc
 
 Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally **grouped** by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that there is **heterogeneity**. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
 
-However, we need to think carefully about applying these models because of two *practical complications* in our A/B test setting. First, the number of visits per person is likely to be very skewed. Many, even most, people may only visit one time. The standard panel data model, fixed effects, throws away that data. Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data. We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
+However, we need to think carefully about applying these models because of two *practical complications* in our A/B test setting. First, the number of visits per person is likely to be very skewed with many people visiting only one time. Those people's data will be thrown away by the standard panel data model, fixed effects.  Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data. We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
 
 ### Key lessons
 1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less(!)* efficient than a simple regression. To choose between fixed effects and simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
 2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
-3. But, if you include covariates in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met.
+3. But, if you include _observational_ covariates (as opposed to a randomized treatment) in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met. The relatively strong assumptions for random effects are the main reason economists favor fixed effects in observational work. This is very important to note but is covered in any econometrics text. 
 
 
 ### Code and implementation
@@ -38,7 +38,32 @@ $$
 
 where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. The treatment dummy is $$d_{it}$$. The corresponding treatment effect is $$\beta$$ is our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s personal tendency to share photos.
 
-Given this underlying model, let's consider four ways to estimate $$\beta$$. The key differences behind them are how they treat variation between and within persons. Between variation refers to the fact that some persons post more than others and some persons are more exposed to the treatment than others. Within variation refers to the fact that *a given person* posts on some visits but not on others and sees the treatment version of the site on some visits and not on others. These two types of variation can be used to estimate the treatment effect, and each of the four models uses the variation in different ways.[[^9]]
+The variation in the data can be split: between-person and within-person. Between-person variation refers to the fact that some persons post more than others and some persons are more exposed to the treatment than others. Within variation refers to the fact that *a given person* posts on some visits but not on others and sees the treatment version of the site on some visits and not on others.
+
+#### Between-person and within-person variation: A Python demo
+~~~
+df[['i', 't', 'y', 'd']].head()
+>   i  t  y  d
+ 0  0  0  0  1
+ 1  0  1  0  0
+ 2  1  0  0  0
+ 3  1  1  1  0
+ 4  1  2  0  0
+
+# Between-person variation
+df.groupby('i')[['y', 'd']].mean().std()
+> y    0.404658
+> d    0.372494
+
+# Within-person variation
+df.groupby('t')[['y', 'd']].transform(lambda x: x - x.mean()).std()
+> y    0.483391
+> d    0.489044
+~~~
+
+Given this underlying model and variation, let's consider four ways to estimate $$\beta$$. The key differences behind them are how they treat variation between and within persons.[[^9]]
+
+For precise details on these models, see the section "Demonstrative implementations" in the [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). Each model from the `linearmodels` package is reimplemented manually with data transformations and OLS.
 
 ### Simple regression (pooled OLS)
 Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regression of $$y$$ on $$d$$. This is mathematically equivalent to comparing the averages of $$y$$ between the control and treatment groups. It combines both within and between variation. The regression we are fitting combines $$c_i + \epsilon_{it}$$ into a single error term: $$y_{it} = d_{it} \beta + \nu_{it}$$. Because we are ignoring the individual heterogeneity, it goes into our residuals and inflates their variance. In turn, the the variance of our estimator increases and power decreases.
@@ -46,7 +71,7 @@ Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regr
 ### Fixed effects ("within estimator")
 The intuition of fixed effects is that each individual is treated as their own control group, thus exploiting only the within variation. This makes each person's individual propensity irrelevant. We can implement the fixed effects estimator $$\hat{\beta}_{\text{FE}}$$ by substracting the person-specific averages from all of our data. We would regress $$y_{it} - \bar{y}_i$$ on $$d_{it} - \bar{d}_i$$. The "demeaning" also subtracts away the term $$c_i$$. This _potentially_ reduces the residual variance and increases precision.
 
-For fixed effects to work, some individuals must see both the control and treatment sites. In our experiment scenario we face the problem that some individuals may see only one variant. That happens if they visit just one time or happen to get the same coin flip on every visit. The fixed effects estimator ignores these individuals, which decreases our effective sample size.
+For fixed effects to work, some individuals must see both the control and treatment sites. In our experiment scenario we face the problem that some individuals may see only one variant. That happens if they visit just one time or happen to get the same coin flip on every visit. These persons have no within-person variation in the treatment $$d_{it}$$! The fixed effects estimator ignores these individuals, which decreases our effective sample size.
 
 ### Between estimator
 The between estimator $$\hat{\beta}_{\text{BE}}$$ is the complement of the within estimator. It uses only the variation between individuals and discards the within-person variation. We can implement it by averaging all our data to the person-level and then running a regression. That is, we fit the regression $$\bar{y}_i = \alpha + \bar{d}_i \beta + \bar{\nu}_i$$. For this model to work, we must have variation in $$\bar{d}_i$$. In proportion of visits to the treatment site must be higher for some persons than others. That will happen as a consequence of the control/treatment assignment being made by independent coinflips, generating a mixture of binomial ditributions. The between estimator is rarely used in practice, but it is an ingredient in the random effects estimator.
@@ -88,12 +113,6 @@ where
 3. The treatment is assigned by coinflip on each visit, $$d_{it} \sim \text{Bernoulli}(0.5)$$,
 4. There is a constant additive treatment effect $$\beta = 0.04$$, and
 5. The individual propensities to post are distributed symmetrically, $$c_i \sim \text{Beta}(\alpha, \alpha)$$ rescaled s.t. $$c_i \in [0.05, 0.95]$$. 
-
-<!-- - $$\beta = 0.04$$
-- $$c_i \sym \text{Beta}(\alpha, \alpha)\text{scaled between 0.05 and 0.95}$$
-- $$i \in 1,2,3,\ldots,100$$
-- $$T_i \sym \text{Poisson}(\mu_i), \lambda\sym\text{Exponential}(\lambda)$$. -->
-<!-- #### Simple regression (pooled OLS) -->
 
 ### Individual heterogeneity
 

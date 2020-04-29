@@ -119,6 +119,13 @@ img {
     display: block;
 }
 
+table.center {
+  width:70%; 
+  margin-left:15%; 
+  margin-right:15%;
+}
+
+
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
   max-width: none;
