@@ -21,12 +21,12 @@ However, we need to think carefully about applying these models because of two *
 ### Key lessons
 1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less(!)* efficient than a simple regression. To choose between fixed effects and simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
 2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
-3. But, if you include _observational_ covariates (as opposed to a randomized treatment) in your model, you should probably avoid random effects as the necessary assumptions are unlikely to be met. The relatively strong assumptions for random effects are the main reason economists favor fixed effects in observational work. This is very important to note but is covered in any econometrics text. 
+3. But, if you include _observational_ covariates (as opposed to just a randomized treatment) in your model, you should probably avoid random effects. It requires strong assumptions, which is why many economists favor fixed effects in observational studies. This is very important to note and covered in detail in any econometrics text.
 
 
 ### Code and implementation
 
-The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). The models are fit using the `linearmodels` package, but can also be cooked up with `statsmodels`. For implementation details, good sources include the `linearmodel` docs and source along with the [Stata doc for `xtreg`](https://www.stata.com/manuals13/xtxtreg.pdf).
+The graphs and simulation results are available in this [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). I fit the models using the `linearmodels` package *and* implemented them manually with `statsmodels`. For implementation details, good sources include the `linearmodel` docs and source along with the [Stata docs for `xtreg`](https://www.stata.com/manuals13/xtxtreg.pdf). The notebook is also instructive about using `multiprocessing` to parallelize the simulations for a massive speed up.
 
 ## Introducing the models
 
@@ -36,7 +36,7 @@ $$
 y_{it} = d_{it} \beta + c_i + \epsilon_{it}
 $$
 
-where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. The treatment dummy is $$d_{it}$$. The corresponding treatment effect is $$\beta$$ is our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s personal tendency to share photos.
+where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. So, $$y_{it}=1$$ if persion $$i$$ posted in visit $$t$$ and 0 otherwise. The treatment dummy is $$d_{it}$$. So, $$d_{it}=1$$ if persion $$i$$ was in the treatment in visit $$t$$ and 0 otherwise. The corresponding treatment effect is $$\beta$$ is our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s personal tendency to share photos.
 
 The variation in the data can be split: between-person and within-person. Between-person variation refers to the fact that some persons post more than others and some persons are more exposed to the treatment than others. Within variation refers to the fact that *a given person* posts on some visits but not on others and sees the treatment version of the site on some visits and not on others.
 
@@ -56,9 +56,9 @@ df.groupby('i')[['y', 'd']].mean().std()
 > d    0.372494
 
 # Within-person variation
-df.groupby('t')[['y', 'd']].transform(lambda x: x - x.mean()).std()
-> y    0.483391
-> d    0.489044
+df.groupby('i')[['y', 'd']].transform(lambda x: x - x.mean()).std()
+> y    0.351786
+> d    0.400976
 ~~~
 
 Given this underlying model and variation, let's consider four ways to estimate $$\beta$$. The key differences behind them are how they treat variation between and within persons.[[^9]]
@@ -66,7 +66,7 @@ Given this underlying model and variation, let's consider four ways to estimate 
 For precise details on these models, see the section "Demonstrative implementations" in the [Colab notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf). Each model from the `linearmodels` package is reimplemented manually with data transformations and OLS.
 
 ### Simple regression (pooled OLS)
-Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regression of $$y$$ on $$d$$. This is mathematically equivalent to comparing the averages of $$y$$ between the control and treatment groups. It combines both within and between variation. The regression we are fitting combines $$c_i + \epsilon_{it}$$ into a single error term: $$y_{it} = d_{it} \beta + \nu_{it}$$. Because we are ignoring the individual heterogeneity, it goes into our residuals and inflates their variance. In turn, the the variance of our estimator increases and power decreases.
+Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regression of $$y$$ on $$d$$. This is mathematically equivalent to comparing the averages of $$y$$ between the control and treatment groups. It combines both within and between variation. The regression we are fitting combines $$c_i + \epsilon_{it}$$ into a single error term: $$y_{it} = d_{it} \beta + \nu_{it}$$. Because we are ignoring the individual heterogeneity, it goes into our residuals and inflates their variance. In turn, the variance of our estimator increases and power decreases.
 
 ### Fixed effects ("within estimator")
 The intuition of fixed effects is that each individual is treated as their own control group, thus exploiting only the within variation. This makes each person's individual propensity irrelevant. We can implement the fixed effects estimator $$\hat{\beta}_{\text{FE}}$$ by substracting the person-specific averages from all of our data. We would regress $$y_{it} - \bar{y}_i$$ on $$d_{it} - \bar{d}_i$$. The "demeaning" also subtracts away the term $$c_i$$. This _potentially_ reduces the residual variance and increases precision.
@@ -142,7 +142,7 @@ The other factor of interest is the number of visits per person. Below we vary t
 
 When our experiment has grouped data and heterogeneity, we can increase our statistical power by applying the standard panel data models from our econometrics training.[[^3]] The familiar fixed effects model can help or hurt significantly. To understand that we developed simulations and intuition about the key factors: group size and degree of heterogeneity. We also saw that the random effects model automatically adapts based on those factors, in effect, making the choice for us.
 
-This post only scratches the surface of these types of models. Practitioners should use simulations with realistic data-generating processes inspired by their data, rather than the stylized, toy processes here. We also made simplifications, for example, choosing a constant additive treatment effect rather than a heterogeneous treatment effect (that could also be correlated with the heterogeneity in intercepts!). Finally, we also ignored the complicated matter of estimating of standard errors. These matters are left to future posts.
+This post only scratches the surface of these types of models. Practitioners should use simulations with realistic data-generating processes inspired by their data, rather than the stylized, toy processes here. We also made simplifications, for example, choosing a constant additive treatment effect rather than a heterogeneous treatment effect (that could also be correlated with the heterogeneity in intercepts!). There are also well-developed Bayesian approaches to these models. Finally, we also ignored the complicated matter of estimating of standard errors. These matters are left to future posts.
 
 ## Notes
 
