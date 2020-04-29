@@ -7,22 +7,26 @@ excerpt_separator: <!--more-->
 
 *You can boost statistical power by modeling the heterogeneity of your users.*
 
-![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="90%"}
+![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="80%"}
 <!--more-->
 
 # DRAFT
 
+# Summary
+
 In A/B testing we want to use methods with high statistical power because it accelerates our rate of experimentation and product improvement. This post explains how you can improve the power of your A/B tests using tools that should be familiar to anyone who has taken an econometrics course: ordinary regression, fixed effects, and random effects. These methods are all "correct" [[^1]], but the best one depends on the specifics of your data. We will use simulation and theory to learn several key lessons about these models. 
 
-Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. We have two key factors. First, the observations are naturally **grouped** by person. We can count each individual visit or group our data at the person-day level. Second, we suspect that there is **heterogeneity**. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
+Where do these methods apply? Imagine we are experimenting on a website where people can post photos. During the experiment numerous people visit the website one or more times. Our data has two important characteristics. First, the observations are naturally **grouped** by person. We can count each individual visit or, alternatively, group our data at the person-day level. Second, we suspect that there is **heterogeneity**. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
 
-However, we need to think carefully about applying these models because of two *practical complications* in our A/B test setting. First, the number of visits per person is likely to be very skewed with many people visiting only one time. Those people's data will be thrown away by the standard panel data model, fixed effects.  Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data. We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
-
+However, we need to think carefully about applying these models because of two *practical complications* in our A/B test setting. First, the number of visits per person is likely to be very skewed with many people visiting only one time. Those people's data will be thrown away by a popular panel data model, fixed effects.  Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data. We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
+<!-- Although a workhorse in applied microeconomics with grouped data, it can be far more *or less(!)* efficient than a simple regression. -->
 ### Key lessons
-1. The fixed effects model, although a workhorse in applied microeconomics with grouped data, can be far more *or less(!)* efficient than a simple regression. To choose between fixed effects and simple regression, you should consider two main factors: (1) the number of visits per person and (2) the variance of the individuals' propensity to post. These both increase the relative performance of fixed effects.
-2. You can opt for the random effects estimator, which automatically adjusts for those factors and dominates both alternative models across a wide range of scenarios. 
-3. But, if you include _observational_ covariates (as opposed to just a randomized treatment) in your model, you should probably avoid random effects. It requires strong assumptions, which is why many economists favor fixed effects in observational studies. This is very important to note and covered in detail in any econometrics text.
+1. Fixed effects can be much less efficient than a simple regression. To choose between them, you should consider two key factors: (1) the number of visits per person and (2) the heterogeneity of the individuals' propensity to post. Both factors increase the relative performance of fixed effects. You should simulate your experiment's data-generating process and carefully look at your standard errors to evaluate which model to use.
+2. Use the random effects estimator to automatically adjust for those factors. It often outperforms the alternative models.
+3. If you include _observational_ covariates in your model, use fixed effects. Random effects with observational covariates requires unrealistic assumptions[[^19]].
 
+
+# In-depth discussion
 
 ### Code and implementation
 
@@ -72,6 +76,8 @@ Let's call this estimator $$\hat{\beta}_{\text{OLS}}$$. We can simply run a regr
 The intuition of fixed effects is that each individual is treated as their own control group, thus exploiting only the within variation. This makes each person's individual propensity irrelevant. We can implement the fixed effects estimator $$\hat{\beta}_{\text{FE}}$$ by substracting the person-specific averages from all of our data. We would regress $$y_{it} - \bar{y}_i$$ on $$d_{it} - \bar{d}_i$$. The "demeaning" also subtracts away the term $$c_i$$. This _potentially_ reduces the residual variance and increases precision.
 
 For fixed effects to work, some individuals must see both the control and treatment sites. In our experiment scenario we face the problem that some individuals may see only one variant. That happens if they visit just one time or happen to get the same coin flip on every visit. These persons have no within-person variation in the treatment $$d_{it}$$! The fixed effects estimator ignores these individuals, which decreases our effective sample size.
+
+The fixed effects model is the workhorse of applied microeconometrics because it is valid under relatively weak assumptions. Many economists will see it as their go-to model for any grouped data. However, in an A/B test setting we have strong enough conditions that we can potentially do better with a simple regression or random effects.
 
 ### Between estimator
 The between estimator $$\hat{\beta}_{\text{BE}}$$ is the complement of the within estimator. It uses only the variation between individuals and discards the within-person variation. We can implement it by averaging all our data to the person-level and then running a regression. That is, we fit the regression $$\bar{y}_i = \alpha + \bar{d}_i \beta + \bar{\nu}_i$$. For this model to work, we must have variation in $$\bar{d}_i$$. In proportion of visits to the treatment site must be higher for some persons than others. That will happen as a consequence of the control/treatment assignment being made by independent coinflips, generating a mixture of binomial ditributions. The between estimator is rarely used in practice, but it is an ingredient in the random effects estimator.
@@ -145,6 +151,8 @@ When our experiment has grouped data and heterogeneity, we can increase our stat
 This post only scratches the surface of these types of models. Practitioners should use simulations with realistic data-generating processes inspired by their data, rather than the stylized, toy processes here. We also made simplifications, for example, choosing a constant additive treatment effect rather than a heterogeneous treatment effect (that could also be correlated with the heterogeneity in intercepts!). There are also well-developed Bayesian approaches to these models. Finally, we also ignored the complicated matter of estimating of standard errors. These matters are left to future posts.
 
 ## Notes
+
+[^19]: When you are including covariates, the question of the best model is complex. We are recommending fixed effects merely as the safe choice.
 
 [^1]: By "correct" we mean that they give us consistent estimates of the treatment effect.
 
