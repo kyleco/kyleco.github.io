@@ -9,16 +9,16 @@ excerpt_separator: <!--more-->
 
 ![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="80%"}
 <!--more-->
-
-# DRAFT
+*The initial draft benefited greatly from the thoughtful feedback of these reviewers: Julian Schuessler ([`@juli_schuess`](https://twitter.com/juli_schuess)), Adam Haber ([`@_adam_haber`](https://twitter.com/_adam_haber)), and Yu-Hsin ([`@_yuhsin`](https://twitter.com/_yuhsin)).* 
+{: style="font-size:75%;line-height:100%;" }
 
 # Summary
 
-In A/B testing we want to accelerate our experiments and product improvements by using methods with high statistical power. This post explains how to boost power using basic tools from econometrics: ordinary regression, fixed effects, and random effects. These methods are all "correct" [[^1]], but the best one depends on specific characteristics of your data. We will learn about those characteristics using simulation and theory.
+In A/B testing we want to accelerate our experiments and product improvements by using methods with high statistical power. This post explains how to boost power using basic tools from econometrics: ordinary regression, fixed effects, and random effects. These methods are all "correct" [[^1]], but the best one depends on specific characteristics of your data. We will learn about those characteristics using simulation ([notebook](https://colab.research.google.com/drive/12mEJZsnVhBE7C0KC9QMQKGha5zY_loxf)) and theory.
 
 Where do these methods apply? Imagine a website where people post photos. During our experiment numerous people visit the website one or more times. Our data has two important characteristics. First, the observations are naturally **grouped** by person. We can count each individual visit or, alternatively, group our data at the person-day level. Second, we suspect that there is **heterogeneity**. In other words, some people love to post photos while others rarely do. Panel data models let us incorporate these factors to estimate the treatment effect more precisely, that is, with more statistical power.
 
-However, we need to think carefully about two *practical complications* in our A/B test setting. First, the number of visits per person will be skewed with many people visiting just once. Their data will be thrown away by the popular fixed effects model. Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data. We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
+However, we need to think carefully about two *practical complications* in our A/B test setting. First, the number of visits per person will be skewed with many people visiting just once. Their data will be thrown away by the popular fixed effects model. Second, in A/B tests we typically use a simplistic form of randomization, independent coin flips. Therefore, some people that visit multiple times will still see only the treatment or control experience. Fixed effects also throws away that data.[[^18]] We will better understand these limitations after learning about "between variation", "within variation", and the random effects model.
 <!-- Although a workhorse in applied microeconomics with grouped data, it can be far more *or less(!)* efficient than a simple regression. -->
 ### Key lessons
 1. Fixed effects can be much less efficient than a simple regression. To choose between them, you should consider two key factors: (1) the number of visits per person and (2) the heterogeneity of the individuals' propensity to post. Both factors increase the relative performance of fixed effects. You should simulate your experiment's data-generating process and carefully look at your standard errors to evaluate which model to use.
@@ -34,15 +34,15 @@ The graphs and simulation results are available in this [Colab notebook](https:/
 
 ## Introducing the models
 
-Fixed effects and random effects are both ways of modeling unobserved heterogeneity. In our example scenario, this means each person has an individual propensity to post a photo, but we have no data directly telling us that propensity. Generically, the model looks like
+Fixed effects and random effects are both ways of modeling unobserved heterogeneity. In our example scenario, this means each person has an individual propensity to post a photo, but we have no data *directly* telling us that propensity. Generically, the model looks like
 
 $$
 y_{it} = d_{it} \beta + c_i + \epsilon_{it}
 $$
 
-where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. So, $$y_{it}=1$$ if persion $$i$$ posted in visit $$t$$ and 0 otherwise. The treatment dummy is $$d_{it}$$. So, $$d_{it}=1$$ if persion $$i$$ was in the treatment in visit $$t$$ and 0 otherwise. The corresponding treatment effect is $$\beta$$ is our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s personal tendency to share photos.
+where $$i$$ indexes persons and $$t$$ indexes the visits of each person. The variable $$y_{it}$$ is a dummy indicating whether the person posted on that visit. So, $$y_{it}=1$$ if persion $$i$$ posted in visit $$t$$ and 0 otherwise. The treatment dummy is $$d_{it}$$. So, $$d_{it}=1$$ if persion $$i$$ was in the treatment in visit $$t$$ and 0 otherwise. The corresponding treatment effect is $$\beta$$, our parameter of interest. It tells us how much the treatment version of the site boosts the probability of posting. Finally, each individual's propensity to post is represented by $$c_i$$. Think of this as person $$i$$'s personal tendency to share photos.
 
-The variation in the data can be split: between-person and within-person. Between-person variation refers to the fact that some persons post more than others and some persons are more exposed to the treatment than others. Within variation refers to the fact that *a given person* posts on some visits but not on others and sees the treatment version of the site on some visits and not on others.
+The variation in the data can be split: between-person and within-person. Between-person variation refers to the fact that some persons post more than others and some persons are more exposed to the treatment than others. Within-person variation refers to the fact that *a given person* posts on some visits but not on others and sees the treatment version of the site on some visits and not on others.
 
 #### Between-person and within-person variation: A Python demo
 ~~~
@@ -153,6 +153,8 @@ This post only scratches the surface of these types of models. Practitioners sho
 ## Notes
 
 [^19]: When you are including covariates, the question of the best model is complex. We are recommending fixed effects merely as the safe choice.
+
+[^18]: This lack of within variation will be even worse if the randomization is not 50/50.
 
 [^1]: By "correct" we mean that they give us consistent estimates of the treatment effect.
 
