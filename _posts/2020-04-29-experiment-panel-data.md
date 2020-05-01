@@ -9,8 +9,10 @@ excerpt_separator: <!--more-->
 
 ![coolplot]({{ site.url }}/images/coolplot.svg){: .center-image width="80%"}
 <!--more-->
-*The initial draft benefited greatly from the thoughtful feedback of these reviewers: Julian Schuessler ([`@juli_schuess`](https://twitter.com/juli_schuess)), Adam Haber ([`@_adam_haber`](https://twitter.com/_adam_haber)), and Yu-Hsin ([`@_yuhsin`](https://twitter.com/_yuhsin)).* 
+*The initial draft benefited greatly from the thoughtful feedback of these reviewers: Julian Schuessler ([`@juli_schuess`](https://twitter.com/juli_schuess)), Adam Haber ([`@_adam_haber`](https://twitter.com/_adam_haber)), Carl Nadler, and Yu-Hsin ([`@_yuhsin`](https://twitter.com/_yuhsin)).* 
 {: style="font-size:75%;line-height:100%;" }
+
+Comments and feedback welcome on Twitter: [@KyleCSN](https://twitter.com/KyleCSN).
 
 # Summary
 
