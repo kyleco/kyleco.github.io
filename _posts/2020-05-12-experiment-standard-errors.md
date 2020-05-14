@@ -14,7 +14,7 @@ Comments and feedback welcome on Twitter: [@KyleCSN](https://twitter.com/KyleCSN
 
 # Summary
 
-This post assumes you are familiar with the [previous one]({{ site.url }}/experiment-panel-data/), in which we simulated models for grouped data in A/B tests. Today's post builds on those by considering clustered treatment assignment and corrected standard errors.
+This post assumes you are familiar with the [previous one]({{ site.url }}/experiment-panel-data/), in which we simulated models for grouped data in A/B tests. Today's post builds on those by considering grouped treatment assignment and clustered standard errors.
 
 As before our setting is a photo-sharing website. Each person in the experiment can visit the site multiple times. Our experiment tests a change that we hope increases the probability of posting a photo. In the previous simulations we randomized at the **visit-level**. That is, on each visit we flipped a coin to decide whether to show the treatment or control version. However, in many situations we want to randomize at the **person-level**, flipping a coin for each person and putting them in a single version of the site for the entire experiment. Why? People may be confused or behave unnaturally if their experience on the site is inconsistent. Or, the functionality may be broken or incompatible between the two versions.[[^1]] We learn some key lessons about person-level randomization using simulations.
 
@@ -23,11 +23,12 @@ As before our setting is a photo-sharing website. Each person in the experiment 
 1. Person-level randomization can substantially decrease statistical power relative to visit-level randomization. The power loss depends on the amount of between-person heterogeneity.
 2. We need to adjust our inference to account for the person-level randomization. Otherwise, our p-values can be dramatically wrong. Fortunately, "clustered standard errors" handles this conveniently and generally. The correction is availabe in standard R and Python packages.
 
-<!-- 
-Based on Corollary 1, standard errors must account for clustering if there is clustering in assignments.
-Corollary 2: CLustered ses are approx correct if the data has a small proportion of the clusters in the population.
-If all clusters are in the sample AND there is perfect correlation in the assignment, then there is no improvement over clustered standard errors. Overwise the clsutered SE will be conservative.
- -->
+### Suggested readings
+
+* "Nonstandard Standard Error Issues", chapter 8 of _Mostly Harmless Econometrics_ by Angrist and Pischke. [[pdf link](http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch8.pdf)]
+
+* "When Should You Adjust Standard Errors for Clustering?" by Abadie, Athey, Imbens, and Wooldridge. Stanford GSB working paper. [[pdf link]](https://www.gsb.stanford.edu/faculty-research/working-papers/when-should-you-adjust-standard-errors-clustering)
+
 
 # Results
 
@@ -42,9 +43,6 @@ To depict the power loss, we simulate the benchmark DGP under person-level and v
 The graph below shows simulated power for an effect of 0.04 and 5 percent significance level. The left bars show **visit**-level randomization. Analysis by a simple difference has power of about 70 percent. We can gain even more power (reaching over 80 percent) by using random effects. The right bar shows **person**-level randomization. Power is now about 30 percent, and random effects is not available. The actual difference in power depends on: (1) the number of people, (2) the number of visits per person, and (3) the degree of heterogeneity. In this scenario, by switching to person-level randomization we went from an appropriately powered experiment to a very underpowered one.
 
 ![power_by_randomization.svg]({{ site.url }}/images/power_by_randomization.svg){: .center-image width="100%"}
-
-<!-- ![se_randomization]({{ site.url }}/images/se_randomization.svg){: .center-image width="100%"} -->
-
 
 ## Correct inference with person-level randomization
 
