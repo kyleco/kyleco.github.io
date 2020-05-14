@@ -18,7 +18,7 @@ Comments and feedback welcome on Twitter: [@KyleCSN](https://twitter.com/KyleCSN
 
 This post assumes you are familiar with the [previous one]({{ site.url }}/experiment-panel-data/), in which we simulated models for grouped data in A/B tests. Today's post builds on those by considering clustered treatment assignment and corrected standard errors.
 
-As before our setting is a photo-sharing website. Each person in the experiment can visit the site multiple times. Our experiment tests a change that we hope increases the probability of posting a photo. In the previous simulations we randomized at the **visit-level**. That is, on each visit we flipped a coin to decide whether to show the treatment or control version. However, in many situations we want to randomize at the **person-level**, flipping a coin for each person and putting them in a single version of the site for the entire experiment. We may think that people will be confused or behave unnaturally if their experience on the site is inconsistent. Or, the functionality may be broken or incompatible between the two versions. Simulations give us several key lessons about person-level randomization.
+As before our setting is a photo-sharing website. Each person in the experiment can visit the site multiple times. Our experiment tests a change that we hope increases the probability of posting a photo. In the previous simulations we randomized at the **visit-level**. That is, on each visit we flipped a coin to decide whether to show the treatment or control version. However, in many situations we want to randomize at the **person-level**, flipping a coin for each person and putting them in a single version of the site for the entire experiment. Why? People will be confused or behave unnaturally if their experience on the site is inconsistent. Or, the functionality may be broken or incompatible between the two versions.[[^1]] Simulations give us several key lessons about person-level randomization.
 
 ### Key lessons
 
@@ -75,7 +75,9 @@ To demonstrate the correction, we will return to the benchmark DGP simulations u
 
 In practice, we are very often forced to put groups, or clusters, of data into the same treatment assignment. This is common when the group is a person using some software that we want to have consistent behavior. When we randomly assign the experiment treatment by group, we have two main complications. First, power decreases (in the likely case of heterogeneity between groups). Second, we should use clustered standard errors to get correct inference. This correction is easily implemented in standard software packages, so there is no excuse for avoiding it!
 
-<!-- ## Notes -->
+## Notes
+
+[^1]: Person- or user-level randomization is the default in many settings due to it being genereally more conservative and a better approximation of the indended product experience. Within-person randomization is more likely in a research setting or when we are testing specific, narrow behavioral hypotheses. Within-group randomizaiton, more generally, is also more prevalent when the groups are machines, for example, if we are expertimenting with requests to different servers.
 
 
 
