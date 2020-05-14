@@ -34,13 +34,13 @@ As before our setting is a photo-sharing website. Each person in the experiment 
 
 ## Code and implementation
 
-The [simulation notebook](https://colab.research.google.com/drive/1FxoZbFxknhXc4ISEvJBXkS80NONO1nW_?usp=sharing) is available on Colab. For more details see the model and data-generating process (DGP) see the previous post. This post uses the same benchmark process with adjustments as described below.
+The [simulation notebook](https://colab.research.google.com/drive/1FxoZbFxknhXc4ISEvJBXkS80NONO1nW_?usp=sharing) is available on Colab. For more details see the model and data-generating process (DGP) see the previous post. This post uses the same benchmark DGP with adjustments as described below.
 
 ## Power loss from person-level randomization
 
 To depict the power loss, we simulate the benchmark DGP under person-level and visit-level randomization (implemented by coinflips). There are 500 people in the experiment, each visiting the site exactly 8 times. Person-level randomization suffers when we have person-level heterogeneity. In this case, each person has a baseline propensity to post between 0.05 and 0.95. Recall from the last post our discussion of within-person and between-person variation. Due to the person-level randomization, we only have *between* variation and no way to difference out the heterogeneity. We cannot apply fixed/random effects.
 
-The graph below shows simulated power for an effect of 0.04 and 5 percent significance level. The left bars show **visit**-level randomization. Analysis by a simple difference has power of about 70 percent. We can gain even more power (reaching over 80 percent) by using random effects. The right bar shows **person**-level randomization. Power is now about 30 percent, and random effects is not available. The actual difference in power depends on: (1) the number of people, (2) the number of visits per person, and (3) the degree of heterogeneity. In this scenario, by switching to person-level randomization we went from an appropriately powered experiment to a very underpowered one.
+The graph below shows simulated power for an effect of 0.04 and 5 percent significance level. The left bars show **visit**-level randomization. Analysis by a simple difference has power of about 70 percent. We can gain even more power (reaching over 80 percent) by using random effects. The right bar shows **person**-level randomization, which drops power to about 30 percent. (And we can't use random effects here.) The actual difference in power depends on (1) the number of visits per person, and (2) the degree of heterogeneity. In this scenario, by switching to person-level randomization we went from an appropriately powered experiment to a very underpowered one.
 
 ![power_by_randomization.svg]({{ site.url }}/images/power_by_randomization.svg){: .center-image width="100%"}
 
@@ -55,21 +55,21 @@ Fortunately there is a standard, simple correction called "clustered standard er
 
 ### Clustered standard errors
 
-This is a general approach favored in applied econometrics that adjusts for clustering _and_ heteroscedasticity. For a good, but technical discussion, see ["When Should You Adjust Standard Errors for Clustering?" by Abadie, Athey, Imbens, and Wooldridge](https://economics.mit.edu/files/13927). The paper has three key lessons for us. First, we _should_ use clustered standard errors when the experiment assignments are made at the group level (page 12, corollary 1). Second, if our sample has only a small portion of the persons that _could have_ appeared in the sample, the clustered standard errors are approximately correct. Third, suppose the previous point is not true: Our sample has almost all persons that could be sampled. Under person-level randomization, the clustered standard errors will be conservative, and no better standard error estimator is available.
+This is a general approach favored in applied econometrics that adjusts for clustering _and_ heteroscedasticity. For a good, but technical discussion, see ["When Should You Adjust Standard Errors for Clustering?" by Abadie, Athey, Imbens, and Wooldridge](https://economics.mit.edu/files/13927). The paper has three key lessons for us. First, we _should_ use clustered standard errors when the experiment assignments are made at the group level (page 12, corollary 1). Second, if our sample has only a small portion of the persons that _could have_ appeared in the sample, the clustered standard errors are approximately correct (page 12, corollary 2). Third, suppose the previous point is not true: Our sample has almost all persons that could be sampled. Under person-level randomization, the clustered standard errors will be conservative, and no better standard error estimator is available (page 13).
 
 Standard stats packages allow clustering as an option that will update all regression results appropriately (standard errors, t-stats, and p-values) without any further manual calculations. In R the `sandwich` package does this. In Python `statsmodels` and `linearmodels` provide the correction. 
 
 
 ### Simulation results
 
-To demonstrate the correction, we will return to the benchmark DGP simulations under the null hypothesis of no effect. Before we saw that with 8 visits per person, person-level randomization causes the false positive rate was around 25 percent instead of 5 percent. That result is shown in the figure below on the left side. The green point shows our grossly inflated error rate when using person-level randomization. However, when we use clustered standard errors the error rate is 5 percent as expected! The right side of the figure shows the error rates when using visit-level randomization, where both methods are correct.
+To demonstrate the correction, we will return to the benchmark DGP simulations under the null hypothesis of no effect. Before we saw that with 8 visits per person, person-level randomization boosts the false positive rate to around 25 percent instead of 5 percent. That result reappears in the figure below on the left side. The green point shows our grossly inflated error rate when using person-level randomization. However, when we use clustered standard errors the error rate is 5 percent as expected! The right side of the figure shows the error rates when using visit-level randomization, where both methods are correct.
 
 ![fpr_by_randomization]({{ site.url }}/images/fpr_by_randomization.svg){: .center-image width="100%"}
 
 
 # Conclusion
 
-In practice, we are very often forced to put groups, or clusters, of data into the same treatment assignment. This is common when the group is a person using some software that we want to have consistent behavior. When we randomly assign the experiment treatment by group, we have two main complications. First, power decreases (in the likely case of heterogeneity between groups). If we can implement a within-person experiment, we should! Second, we should use clustered standard errors to get correct inference. This correction is easily implemented in standard software packages, so there is no excuse for avoiding it!
+In practice, we are very often forced to put groups, or clusters, of data into the same treatment assignment. This is common when the group is a person using some software that we want to have consistent behavior. When we randomly assign the experiment treatment by group, we have two main complications. First, power decreases (in the likely case of heterogeneity between groups). So, if we can implement a within-person experiment, then we should! Second, we should use clustered standard errors to get correct inference. This correction is easily implemented in standard software packages, so there is no excuse for avoiding it!
 
 
 # Appendix
@@ -78,11 +78,11 @@ In practice, we are very often forced to put groups, or clusters, of data into t
 
 Clustered standard errors is a general and simple approach to correct inference. However, there are other options you might consider.
 
-* _Aggregate your data to the person-level_:  If you collapse the data, the usual analysis and inference results will be correct. This is the _between estimator_ discussed in the last post. The downside of this approach is that if the groups are of different sizes then you need to implement weighted least squares to maintain power. Another disadvantage is that we cannot use visit-level covariates.
+* _Aggregate your data to the person-level_:  If you collapse the data, the usual analysis and inference results will be correct. This is the _between estimator_ discussed in the last post. The downside of this approach is that if the groups are of different sizes (likely in a software context) then you need to implement some weighting to maintain power. Another disadvantage is that we cannot use visit-level covariates.
 
-* _Moulton factor_: The Moulton factor tells us how much the conventional standard errors need to be inflated to account for clustering. You can calculate the factor and then multiple the naive standard errors by it. However, the standard Moulton factor correction assumes a homoscedastic error structure, which is restrictive in many settings. For more details see chapter 8 of _Mostly Harmless Econometrics_ by Angrist and Pischke [[pdf link](http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch8.pdf)].
+* _Moulton factor_: The Moulton factor tells us how much the conventional standard errors need to be inflated to account for clustering. You can calculate the factor and then multiply the naive standard errors by it. However, the standard Moulton factor correction assumes a homoscedastic error structure, which is restrictive in many settings. For more details see chapter 8 of _Mostly Harmless Econometrics_ by Angrist and Pischke [[pdf link](http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch8.pdf)].
 
 
 ## Notes
 
-[^1]: Person- or user-level randomization is the default in many settings due to it being generally more conservative and a better approximation of the indended product experience. Within-person randomization is more likely in a research setting or when we are testing specific, narrow behavioral hypotheses. Within-group randomization is more of an option when the groups are machines, for example, if we are expertimenting with requests to different servers.
+[^1]: Person- or user-level randomization is the default in many settings due to it being generally more conservative and a better approximation of the intended product experience. Within-person randomization is more likely in a research setting or when we are testing specific, narrow behavioral hypotheses. Within-group randomization is more of an option when the groups are machines and the units are some narrowly-scoped request, for example, if we are expertimenting with requests made between different machines.
