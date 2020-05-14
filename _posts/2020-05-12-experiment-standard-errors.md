@@ -73,9 +73,8 @@ This paper is well worth a read as it provides the most thorough framework for t
 The paper derives the approximate bias in the clustered standard errors (the difference from the true variance) as:
 
 $$
-\frac{\text{Proportion(Clusters sampled)} \cdot \text{Proportion(Units sampled)}}{\text{Total units}} \sum_{c=1}^\text{# clusters} (\text{Size of cluster $c$})^2 \cdot (\text{Effect heterogneity})^2.
+\frac{\text{Proportion(Clusters sampled)} \cdot \text{Proportion(Units sampled)}}{\text{Total units}} \\ \times \sum_{c=1}^\text{# clusters} (\text{Size of cluster $c$})^2 \cdot (\text{Effect heterogeneity})^2.
 $$
-{: style="font-size:65%"}
 
 The expression tells us that the clustered standard error estimator is approximately correct if either of the sampling proportions is small or there is no effect heterogeneity. Effect heterogeneity means the treatment has exactly the same effect on every unit, which is an unrealistic assumption in most cases. In our setting, Proportion(Units sampled) = 1 because we have data on every visit. So the remaining condition is that Proportion(Clusters sampled) is small. As discussed in the paper, the condition cannot be checked in the data. It depends on domain knowledge about your data-generating process. This proportion would be small if we expect future samples to have little overlap in clusters with our experiment sample.[[^20]] However, even if we have high overlap in our experiment, we still should use the clustered standard error estimator. When we have group-level assignments, there is no available improvement to the clustered standard errors. We can only improve if we introduce some within-cluster variation in treatment.
 
@@ -84,7 +83,6 @@ The other key derivation is the difference between the clustered estimator and t
 $$
 \text{Effect heterogeneity}^2 + 4 \cdot (\text{Assignment clustering}) \cdot \text{Potential residuals}^2.
 $$
-{: style="font-size:85%"}
 
 This result tells us that clusters standard errors will increase (relative to the conventional standard errors) with effect heterogeneity and assignment clustering. Our scenario of person-level randomization is the most extreme form of assignment clustering. 
 
