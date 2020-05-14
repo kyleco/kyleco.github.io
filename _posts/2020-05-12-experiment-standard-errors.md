@@ -21,7 +21,7 @@ As before our setting is a photo-sharing website. Each person in the experiment 
 ### Key lessons
 
 1. Person-level randomization can substantially *decrease* statistical power relative to visit-level randomization. The power loss depends on the amount of between-person heterogeneity.
-2. We need to adjust our inference to account for the person-level randomization. Otherwise, our p-values can be dramatically wrong. Fortunately, "clustered standard errors" handles this conveniently and generally. The correction is availabe in standard R and Python packages.
+2. We need to adjust our inference to account for the person-level randomization. Otherwise, our p-values can be dramatically wrong. Fortunately, "clustered standard errors" handles this conveniently and generally. The correction is available in standard R and Python packages.
 
 ### Suggested readings
 
@@ -105,6 +105,6 @@ Clustered standard errors is a general and simple approach to correct inference.
 
 ## Notes
 
-[^1]: Person- or user-level randomization is the default in many settings due to it being generally more conservative and a better approximation of the intended product experience. Within-person randomization is more likely in a research setting or when we are testing specific, narrow behavioral hypotheses. Within-group randomization is more of an option when the groups are machines and the units are some narrowly-scoped request, for example, if we are expertimenting with requests made between different machines.
+[^1]: Person- or user-level randomization is the default in many settings due to it being generally more conservative and a better approximation of the intended product experience. Within-person randomization is more likely in a research setting or when we are testing specific, narrow behavioral hypotheses. Within-group randomization is more of an option when the groups are machines and the units are some narrowly-scoped request, for example, if we are experimenting with requests made between different machines.
 
 [^20]: An example of *high overlap* would be a Facebook-wide experiment where users are clusters. Facebook would expect to have nearly the same sample of users in any experiment unless they specifically limited the experiment to only a small portion of users.
