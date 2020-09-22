@@ -39,7 +39,7 @@ Let $$D_i \in {0, 1}$$ be the actual treatment received. However, because $$D_i$
 
 There are four possible combinations of assignment and actual treatment, and they each have a name:
 
-1. _Compliers_: These subjects always do as they are assigned, so $$D_i = Z_i$$.
+1. _Compliers_: These subjects always do as they are assigned, so $$D^0_i = 0$$ and $$D^1_i = 1$$. We could also write it using functional notation as $$D_i(Z_i) = Z_i$$.
 2. _Never-Takers_: These In a clinical example, this might be comparing a control group (no drug) to a treatment group (experimental drug)subjects never take the treatment, so $$D^0_i=0$$ and $$D^1_i = 0$$.
 3. _Always-Takers_: These subjects always take the treatment, so $$D^0_i=1$$ and $$D^1_i = 1$$.
 4. _Defiers_: These subjects do the opposite of the assignment, so $$D^0_i=1$$ and $$D^1_i = 0$$.
@@ -90,7 +90,7 @@ The last approach is to estimate the complier average causal effect, which is al
 
 #### Adjusting the ITT
 
-Under standard assumptions in the one-sided noncompliance case we can estiamte the CACE by estimating the ITT and the proportion of compliers,
+Under standard assumptions in the one-sided noncompliance case we can estimate the CACE by estimating the ITT and the proportion of compliers,
 
 $$ 
 CACE = \tfrac{ITT}{P(D^1 = 1)} = \tfrac{ITT}{\text{proportion of compliers}}.
@@ -106,5 +106,5 @@ An important challenge of estimating the ATE in this way is that statistical pow
 
 Since the CACE is simply the ATE by restricted to the subsample of compliers, we may be able to estimate it directly. To that we need know which subjects are compliers, in both the treatment group and the control group. This means we need to have data on which treatment subjects were actually treated and which control subjects _would have been treated if they were in the treatment group_. Obtaining that data often requires extra measures. In the canvasing example, we would need to send canvasers even to the control group to check if the voter is home and willing to open the door. We might do this using a "placebo" treatment, for example, delivering a face-to-face message about a non-political topic that should not have any effect on votign behavior. In an example of an A/B test on a specific web page, we need to have logging of all users' visits to that page. If we have this kind of data, we can throw away all the noncompliers and analyze only the compliers.
 
-For a given sample size, directly estimating the CACE delivers increases precision. By incorporating additional information about who is a complier, we can eliminate the uncertainty resulting from estimating the proportion of compliers and the "noises" resulting  from noncompliers in both the treatment and control groups. 
+For a given sample size, directly estimating the CACE delivers increased precision. By incorporating additional information about who is a complier, we can eliminate the uncertainty resulting from estimating the proportion of compliers and the "noises" resulting  from noncompliers in both the treatment and control groups. 
 
